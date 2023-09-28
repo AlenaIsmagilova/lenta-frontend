@@ -1,16 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { setupStore } from "./store/store";
-import App from "./App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { setupStore } from "./app/store";
 import "./index.css";
+import SignIn from "./pages/SignIn/SignIn";
 
 const store = setupStore();
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <SignIn />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
