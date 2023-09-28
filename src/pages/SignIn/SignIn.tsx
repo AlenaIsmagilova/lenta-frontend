@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import SignInForm from "../../features/SignInForm/SignInForm";
 
 const SignIn = () => {
-  return <div>Hhh</div>;
+    return <SignInForm/>;
 };
 
 export default SignIn;
