@@ -1,7 +1,7 @@
-import Layout from "../../components/Layout/Layout";
+import SignInForm from "../../features/SignInForm/SignInForm";
 
 const SignIn = () => {
-  return <Layout />;
+  return <SignInForm />;
 };
 
 export default SignIn;
