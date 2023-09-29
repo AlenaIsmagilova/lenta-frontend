@@ -35,32 +35,28 @@ const SignInForm = () => {
     };
 
     return (
-        <Container
-            component="main"
-            maxWidth="xs"
-        >
-            <Typography component="h1" variant="h5">
+        <Box component="section">
+            <Typography component="h1" variant="h5" color={"primary.contrastText"}>
                 Авторизуйтесь, пожалуйста
             </Typography>
             <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    borderRadius: 4,
-                    backgroundColor: 'primary.dark',
-                    width: '460px'
-                }}
+                bgcolor={"background.paper"}
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+                width={"460px"}
+                marginTop={8}
+                borderRadius={4}
             >
-                <Box component="form" onSubmit={handleSubmit} noValidate
-                     sx={{
-                         display: 'flex',
-                         flexDirection: 'column',
-                         alignItems: 'center',
-                         width: '380px',
-                         padding: '40px'
-                     }}
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    noValidate
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                    width={"380px"}
+                    padding={"40px"}
                 >
                     <TextField
                         margin="normal"
@@ -71,6 +67,12 @@ const SignInForm = () => {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        InputProps={{
+                            sx: {
+                                backgroundColor: "background.default",
+                                borderRadius: 2
+                            }
+                        }}
                     />
 
                     <FormControl sx={{mt: 2}} fullWidth variant="outlined">
@@ -91,6 +93,10 @@ const SignInForm = () => {
                                 </InputAdornment>
                             }
                             label="Password"
+                            sx={{
+                                backgroundColor: "background.default",
+                                borderRadius: 2
+                            }}
                         />
                     </FormControl>
 
@@ -100,7 +106,7 @@ const SignInForm = () => {
                         type="submit"
                         variant="contained"
                         size={"large"}
-                        sx={{mt: 3, mb: 2, width: 160}}
+                        sx={{mt: 3, mb: 2, width: 160, borderRadius: 2}}
                     >
                         Войти
                     </Button>
@@ -112,7 +118,7 @@ const SignInForm = () => {
 
 
             </Box>
-        </Container>
+        </Box>
     );
 
 };
