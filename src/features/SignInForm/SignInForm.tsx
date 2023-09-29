@@ -1,5 +1,5 @@
 import {useSignInMutation} from "../../services/SignInService";
-import {ISignIn} from "../../models/ISignIn";
+// import {ISignInRequest} from "../../models/ISignInRequest";
 import {
     Box,
     Button,
@@ -10,16 +10,17 @@ import {
     Link,
     OutlinedInput, TextField, Typography
 } from "@mui/material";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const SignInForm = () => {
-    const [signIn, {data, isLoading, isError, isSuccess}] = useSignInMutation();
-    const handleSubmit = async () => {
-        await signIn({username: 'test', password: 'pwd'} as ISignIn);
+    const [signIn, /*{data, isLoading, isError}*/] = useSignInMutation();
+    const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.nativeEvent.target
+        await signIn({username: 'test', password: 'pwd'});
     }
     const [showPassword, setShowPassword] = useState(false);
-
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -43,13 +44,13 @@ const SignInForm = () => {
             >
                 <Box
                     component="form"
-                    onSubmit={handleSubmit}
                     noValidate
                     display={"flex"}
                     flexDirection={"column"}
                     alignItems={"center"}
                     width={"380px"}
                     padding={"40px"}
+                    onSubmit={handleSubmit}
                 >
                     <TextField
                         margin="normal"
@@ -72,6 +73,7 @@ const SignInForm = () => {
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
+                            required
                             type={showPassword ? 'text' : 'password'}
                             endAdornment={
                                 <InputAdornment position="end">

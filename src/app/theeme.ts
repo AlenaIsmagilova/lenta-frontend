@@ -28,6 +28,18 @@ const theme = createTheme({
         success: {
             main: '#00BE64'
         }
+    },
+    typography: {
+        fontFamily: 'Gilroy',
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none'
+                }
+            }
+        }
     }
 });
 
