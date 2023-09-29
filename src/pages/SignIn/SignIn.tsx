@@ -1,5 +1,5 @@
 import SignInForm from "../../features/SignInForm/SignInForm";
-import {Box, Container} from "@mui/material";
+import {Box} from "@mui/material";
 import {Logo} from "../../ui/logo/logo";
 import patternImage from "../../app/images/pattern.svg";
 
@@ -15,8 +15,20 @@ const SignIn = () => {
                      display={"flex"}
                      flexDirection={"column"}
                 >
-                    <Box display={"flex"} alignSelf={"flex-start"}><Logo/></Box>
-                    <SignInForm/>
+                    <Box
+                        display={"flex"}
+                        alignSelf={"flex-start"}
+                        paddingLeft={'32px'}
+                        paddingTop={'32px'}
+                    >
+                        <Logo color={"white"}/>
+                    </Box>
+                    <Box
+                        paddingTop={'179px'}
+                    >
+                        <SignInForm/>
+                    </Box>
+
                 </Box>
                 <Box
                     width={"calc(100% - 743px)"}

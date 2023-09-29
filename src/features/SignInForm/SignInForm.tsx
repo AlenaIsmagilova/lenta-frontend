@@ -1,12 +1,9 @@
 import {useSignInMutation} from "../../services/SignInService";
 import {ISignIn} from "../../models/ISignIn";
 import {
-    Avatar,
     Box,
-    Button, Checkbox,
-    Container, CssBaseline,
-    FormControl, FormControlLabel,
-    Grid,
+    Button,
+    FormControl,
     IconButton,
     InputAdornment,
     InputLabel,
@@ -15,10 +12,6 @@ import {
 } from "@mui/material";
 import {useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-
-function LockOutlinedIcon() {
-    return null;
-}
 
 const SignInForm = () => {
     const [signIn, {data, isLoading, isError, isSuccess}] = useSignInMutation();
@@ -36,7 +29,7 @@ const SignInForm = () => {
 
     return (
         <Box component="section">
-            <Typography component="h1" variant="h5" color={"primary.contrastText"}>
+            <Typography component="h1" variant="h4" color={"primary.contrastText"}>
                 Авторизуйтесь, пожалуйста
             </Typography>
             <Box
