@@ -1,48 +1,56 @@
-import { useSignInMutation } from "../../services/SignInService";
+import {useSignInMutation} from "../../services/SignInService";
 // import {ISignInRequest} from "../../models/ISignInRequest";
 import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Link,
-  OutlinedInput,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    Link,
+    OutlinedInput,
+    TextField,
+    Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React, {useState} from "react";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const SignInForm = () => {
-  const [signIn /*{data, isLoading, isError}*/] = useSignInMutation();
-  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.nativeEvent.target;
-    await signIn({ username: "test", password: "pwd" });
-  };
-  const [showPassword, setShowPassword] = useState(false);
+    const [signIn /*{data, isLoading, isError}*/] = useSignInMutation();
+    const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.nativeEvent.target;
+        await signIn({username: "test", password: "pwd"});
+    };
+    const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        event.preventDefault();
+    };
 
     return (
         <Box component="section" width={616} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-      <Typography component="h1" variant="h4" textAlign={"center"} color={"primary"}>
-                Авторизуйтесь для входа в Лента.Спрос
+            <Typography
+                component="h1"
+                variant="h4"
+                textAlign={"center"}
+                color={"primary"}
+                fontWeight={"bold"}
+                lineHeight={"130%"}
+                letterSpacing={"0.34px"}
+            >
+                Авторизуйтесь для входа <br/> в Лента.Спрос
             </Typography>
             <Box
                 display={"flex"}
                 flexDirection={"column"}
                 alignItems={"center"}
                 width={460}
-                marginTop={8}
+                marginTop={5}
                 borderRadius={4}
                 sx={{
                     boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);"
@@ -56,32 +64,31 @@ const SignInForm = () => {
                     alignItems={"center"}
                     width={"380px"}
                     py={10}
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Логин"
-            name="username"
-            autoComplete="off"
+                    onSubmit={handleSubmit}
+                >
+                    <TextField
+                        required
+                        fullWidth
+                        id="username"
+                        label="Логин"
+                        name="username"
+                        autoComplete="off"
                         autoFocus
                         InputProps={{
                             sx: {
-                borderRadius: 2,
-              },
-            }}
-          />
+                                borderRadius: 2,
+                            },
+                        }}
+                    />
 
-          <FormControl sx={{ mt: 2 }} fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Пароль
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              required
-              type={showPassword ? "text" : "password"}
+                    <FormControl sx={{mt: 6}} fullWidth variant="outlined">
+                        <InputLabel htmlFor="outlined-adornment-password">
+                            Пароль
+                        </InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            required
+                            type={showPassword ? "text" : "password"}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -97,32 +104,32 @@ const SignInForm = () => {
                             label="Пароль"
                             sx={{
                                 borderRadius: 2,
-              }}
-            />
-          </FormControl>
+                            }}
+                        />
+                    </FormControl>
 
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            size={"large"}
-            sx={{ mt: 3, mb: 2, width: 160, borderRadius: 2 }}
-          >
-            Войти
-          </Button>
+                    <Button
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        size={"large"}
+                        sx={{mt: 8, mb: 5, width: 160, height: 46, borderRadius: 2}}
+                    >
+                        Войти
+                    </Button>
 
-          <Link
-            href="#"
-            variant="body2"
-            sx={{ width: "100%" }}
-            textAlign={"center"}
-          >
-            Забыли пароль?
-          </Link>
+                    <Link
+                        href="#"
+                        variant="body2"
+                        sx={{width: "100%"}}
+                        textAlign={"center"}
+                    >
+                        Забыли пароль?
+                    </Link>
+                </Box>
+            </Box>
         </Box>
-      </Box>
-    </Box>
-  );
+    );
 };
 
 export default SignInForm;
