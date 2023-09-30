@@ -5,10 +5,11 @@ import patternImage from "../../app/images/pattern.svg";
 
 const SignIn = () => {
     return (
-        <Box component="main" bgcolor={"primary.main"} width={"100%"}>
+        <Box component="main" width={"100%"}>
             <Box
                 height={'100vh'}
                 display={"flex"}
+                padding={10}
             >
                 <Box width={"743px"}
                      alignItems={"center"}
@@ -18,10 +19,8 @@ const SignIn = () => {
                     <Box
                         display={"flex"}
                         alignSelf={"flex-start"}
-                        paddingLeft={'32px'}
-                        paddingTop={'32px'}
                     >
-                        <Logo color={"white"}/>
+                        <Logo width={312} height={72}/>
                     </Box>
                     <Box
                         paddingTop={'16%'}
