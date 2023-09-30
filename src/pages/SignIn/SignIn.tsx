@@ -33,7 +33,7 @@ const SignIn = () => {
                     borderRadius={8}
                     sx={{
                         backgroundImage: `url(${patternImage})`,
-                        backgroundRepeat: 'repeat'
+                        backgroundSize: 'contain'
                     }}
                 >
                 </Box>
