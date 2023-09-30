@@ -1,10 +1,8 @@
-import {FC} from "react";
-
-interface LogoProps {
+interface ILogoProps {
     color?: string
 }
 
-export const Logo: FC<LogoProps> = ({color = "#103F93"}) => {
+export const Logo = ({color = "#103F93"}: ILogoProps) => {
     return (
         <div>
             <svg
