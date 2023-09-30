@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {ISignIn} from "../models/ISignIn";
-import {IToken} from "../models/IToken";
+import {ISignInRequest} from "../models/ISignInRequest";
+import {ISignInResponse} from "../models/ISignInResponse";
 
 export const signInAPI = createApi({
     reducerPath: 'signInAPI',
@@ -9,7 +9,7 @@ export const signInAPI = createApi({
         baseUrl: 'http://localhost:5000'
     }),
     endpoints: (build) => ({
-        signIn: build.mutation<IToken, ISignIn>({
+        signIn: build.mutation<ISignInResponse, ISignInRequest>({
             query: (body) => ({
                 // TODO: заменить на эндпоинт API
                 url: '/login',
