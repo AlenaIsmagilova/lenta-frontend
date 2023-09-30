@@ -3,20 +3,20 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { setupStore } from "./app/store";
-import "./app/assets/index.css";
+import "./app/assets/styles/index.css";
 import SignIn from "./pages/SignIn/SignIn";
-import Header from "./components/Header/Header";
+import Layout from "./components/Layout/Layout";
 
 const store = setupStore();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SignIn />,
+    element: <Layout />,
   },
   {
     path: "/statistics",
-    element: <SignIn />,
+    element: <Layout />,
   },
 ]);
 
