@@ -29,15 +29,15 @@ const SignInForm = () => {
     };
 
     return (
-        <Box component="section">
-            <Typography component="h1" variant="h4">
+        <Box component="section" width={616} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+            <Typography component="h1" variant="h4" textAlign={"center"} color={"primary"}>
                 Авторизуйтесь для входа в Лента.Спрос
             </Typography>
             <Box
                 display={"flex"}
                 flexDirection={"column"}
                 alignItems={"center"}
-                width={"460px"}
+                width={460}
                 marginTop={8}
                 borderRadius={4}
                 sx={{
@@ -51,7 +51,7 @@ const SignInForm = () => {
                     flexDirection={"column"}
                     alignItems={"center"}
                     width={"380px"}
-                    padding={"40px"}
+                    py={10}
                     onSubmit={handleSubmit}
                 >
                     <TextField
@@ -61,7 +61,7 @@ const SignInForm = () => {
                         id="username"
                         label="Логин"
                         name="username"
-                        autoComplete="username"
+                        autoComplete="off"
                         autoFocus
                         InputProps={{
                             sx: {

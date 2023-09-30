@@ -11,8 +11,7 @@ const SignIn = () => {
                 display={"flex"}
                 padding={20}
             >
-                <Box width={"743px"}
-                     alignItems={"center"}
+                <Box width={655}
                      display={"flex"}
                      flexDirection={"column"}
                 >
@@ -23,14 +22,14 @@ const SignIn = () => {
                         <Logo width={312} height={72}/>
                     </Box>
                     <Box
-                        paddingTop={'15%'}
+                        paddingTop={'21%'}
                     >
                         <SignInForm/>
                     </Box>
 
                 </Box>
                 <Box
-                    width={"calc(100% - 743px)"}
+                    width={"calc(100% - 655px)"}
                     borderRadius={8}
                     sx={{
                         backgroundImage: `url(${patternImage})`,
