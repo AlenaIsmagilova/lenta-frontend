@@ -1,30 +1,45 @@
-import {useSignInMutation} from "../../services/SignInService";
-// import {ISignInRequest} from "../../models/ISignInRequest";
 import {
     Box,
     Button,
-    FormControl,
     IconButton,
     InputAdornment,
-    InputLabel,
     Link,
-    OutlinedInput,
     TextField,
     Typography,
 } from "@mui/material";
-import React, {useState} from "react";
+import React from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
+import {useSignInMutation} from "../../services/SignInService";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {
+    setUsernameError,
+    setPasswordError,
+    setShowPassword
+} from "./signInFormSlice";
+
 const SignInForm = () => {
-    const [signIn /*{data, isLoading, isError}*/] = useSignInMutation();
+    const [signIn, {/*data,*/ isError, reset}] = useSignInMutation();
+    const {showPassword, passwordError, usernameError, isUsernameError, isPasswordError} = useAppSelector(state => state.signInReducer);
+    const dispatch = useAppDispatch();
+
     const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
-        event.nativeEvent.target;
-        await signIn({username: "test", password: "pwd"});
-    };
-    const [showPassword, setShowPassword] = useState(false);
+        const formData = new FormData(event.nativeEvent.target as HTMLFormElement);
+        const username = formData.get('username')?.toString();
+        const password = formData.get('password')?.toString();
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+        if (!username || !password) {
+            dispatch(setUsernameError(username ? "" : "Введите логин"));
+            dispatch(setPasswordError(password ? "" : "Введите пароль"));
+            reset();
+            return;
+        }
+        await signIn({username, password});
+        // TODO: сохранить токен от бекенда
+    };
+
+    const handleClickShowPassword = () => dispatch(setShowPassword(!showPassword));
 
     const handleMouseDownPassword = (
         event: React.MouseEvent<HTMLButtonElement>
@@ -67,12 +82,14 @@ const SignInForm = () => {
                     onSubmit={handleSubmit}
                 >
                     <TextField
+                        error={isUsernameError || isError}
                         required
                         fullWidth
                         id="username"
                         label="Логин"
                         name="username"
-                        autoComplete="off"
+                        autoComplete="username"
+                        helperText={isError ? "Логин или пароль введены не верно" : usernameError}
                         autoFocus
                         InputProps={{
                             sx: {
@@ -81,15 +98,23 @@ const SignInForm = () => {
                         }}
                     />
 
-                    <FormControl sx={{mt: 6}} fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">
-                            Пароль
-                        </InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-password"
-                            required
-                            type={showPassword ? "text" : "password"}
-                            endAdornment={
+                    <TextField
+                        sx={{mt: 6}}
+                        error={isPasswordError}
+                        required
+                        fullWidth
+                        id="password"
+                        label="Пароль"
+                        name="password"
+                        autoComplete="password"
+                        helperText={passwordError}
+                        autoFocus
+                        type={showPassword ? "text" : "password"}
+                        InputProps={{
+                            sx: {
+                                borderRadius: 2,
+                            },
+                            endAdornment:
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
@@ -100,13 +125,8 @@ const SignInForm = () => {
                                         {showPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
-                            }
-                            label="Пароль"
-                            sx={{
-                                borderRadius: 2,
-                            }}
-                        />
-                    </FormControl>
+                        }}
+                    />
 
                     <Button
                         fullWidth
