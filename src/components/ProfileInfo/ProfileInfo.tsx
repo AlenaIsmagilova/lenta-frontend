@@ -5,12 +5,16 @@ import arrowDown from "../../app/images/down.svg";
 import phone from "../../app/images/phone.svg";
 import settings from "../../app/images/settings.svg";
 import logout from "../../app/images/logout.svg";
-
 import styles from "./ProfileInfo.module.css";
 import { useState } from "react";
 
 const ProfileInfo = () => {
   const [isDropDownMenuOpened, setIsDropDownMenuOpened] = useState(false);
+  const date = new Date().toLocaleDateString("ru", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   const onClick = () => {
     setIsDropDownMenuOpened(!isDropDownMenuOpened);
@@ -20,23 +24,25 @@ const ProfileInfo = () => {
     <div className={styles.container}>
       <div className={styles.infoWrapper}>
         <img className={styles.image} src={calendar} alt="календарь" />
-        <p className={styles.text}>Дата</p>
+        <p className={styles.text}>{date}</p>
       </div>
       <div className={styles.infoWrapper}>
         <img className={styles.image} src={store} alt="магазин" />
         <p className={styles.text}>ID сотрудника</p>
       </div>
-      <div className={styles.infoWrapper}>
-        <img className={styles.image} src={user} alt="личный кабинет" />
-        <p className={styles.text}>ФИО</p>
-        <button className={styles.button} type="button" onClick={onClick}>
+      <button className={styles.button} type="button" onClick={onClick}>
+        <div className={styles.infoWrapper}>
+          <img className={styles.image} src={user} alt="личный кабинет" />
+          <p className={styles.text}>ФИО</p>
           <img
-            className={isDropDownMenuOpened ? styles.turnedImage : styles.image}
+            className={
+              isDropDownMenuOpened ? styles.turnedImage : styles.arrowImage
+            }
             src={arrowDown}
             alt="стрелка вниз"
           />
-        </button>
-      </div>
+        </div>
+      </button>
       {isDropDownMenuOpened && (
         <div className={styles.dropDownMenuContainer}>
           <div className={styles.dropDownMenuInfoWrapper}>
