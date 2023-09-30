@@ -100,14 +100,14 @@ const SignInForm = () => {
 
                     <TextField
                         sx={{mt: 6}}
-                        error={isPasswordError}
+                        error={isPasswordError || isError}
                         required
                         fullWidth
                         id="password"
                         label="Пароль"
                         name="password"
                         autoComplete="password"
-                        helperText={passwordError}
+                        helperText={isError ? "" : passwordError}
                         autoFocus
                         type={showPassword ? "text" : "password"}
                         InputProps={{
