@@ -1,7 +1,7 @@
 import SignInForm from "../../features/SignInForm/SignInForm";
 import {Box} from "@mui/material";
 import {Logo} from "../../ui/logo/logo";
-import patternImage from "../../app/images/pattern.svg";
+import patternImage from "../../app/images/pattern.png";
 
 const SignIn = () => {
     return (
@@ -9,7 +9,7 @@ const SignIn = () => {
             <Box
                 height={'100vh'}
                 display={"flex"}
-                padding={10}
+                padding={20}
             >
                 <Box width={"743px"}
                      alignItems={"center"}
@@ -23,7 +23,7 @@ const SignIn = () => {
                         <Logo width={312} height={72}/>
                     </Box>
                     <Box
-                        paddingTop={'16%'}
+                        paddingTop={'15%'}
                     >
                         <SignInForm/>
                     </Box>
@@ -31,6 +31,7 @@ const SignIn = () => {
                 </Box>
                 <Box
                     width={"calc(100% - 743px)"}
+                    borderRadius={8}
                     sx={{
                         backgroundImage: `url(${patternImage})`,
                         backgroundRepeat: 'repeat'

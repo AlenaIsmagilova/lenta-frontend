@@ -1,4 +1,5 @@
 import {createTheme} from "@mui/material";
+import {ruRU} from "@mui/material/locale";
 
 const theme = createTheme({
     palette: {
@@ -29,6 +30,7 @@ const theme = createTheme({
             main: '#00BE64'
         }
     },
+    spacing: 4,
     typography: {},
     components: {
         MuiButton: {
@@ -37,8 +39,9 @@ const theme = createTheme({
                     textTransform: 'none'
                 }
             }
-        }
+        },
+
     }
-});
+}, ruRU);
 
 export default theme;

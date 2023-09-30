@@ -30,17 +30,19 @@ const SignInForm = () => {
 
     return (
         <Box component="section">
-            <Typography component="h1" variant="h4" color={"primary.contrastText"}>
-                Авторизуйтесь, пожалуйста
+            <Typography component="h1" variant="h4">
+                Авторизуйтесь для входа в Лента.Спрос
             </Typography>
             <Box
-                bgcolor={"background.paper"}
                 display={"flex"}
                 flexDirection={"column"}
                 alignItems={"center"}
                 width={"460px"}
                 marginTop={8}
                 borderRadius={4}
+                sx={{
+                    boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);"
+                }}
             >
                 <Box
                     component="form"
@@ -63,7 +65,6 @@ const SignInForm = () => {
                         autoFocus
                         InputProps={{
                             sx: {
-                                backgroundColor: "background.default",
                                 borderRadius: 2
                             }
                         }}
@@ -89,7 +90,6 @@ const SignInForm = () => {
                             }
                             label="Пароль"
                             sx={{
-                                backgroundColor: "background.default",
                                 borderRadius: 2
                             }}
                         />
