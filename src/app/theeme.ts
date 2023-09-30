@@ -29,9 +29,7 @@ const theme = createTheme({
             main: '#00BE64'
         }
     },
-    typography: {
-        fontFamily: 'Gilroy',
-    },
+    typography: {},
     components: {
         MuiButton: {
             styleOverrides: {

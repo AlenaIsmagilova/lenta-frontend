@@ -56,10 +56,10 @@ const SignInForm = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Логин"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
                         InputProps={{
                             sx: {
@@ -70,7 +70,7 @@ const SignInForm = () => {
                     />
 
                     <FormControl sx={{mt: 2}} fullWidth variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
                             required
@@ -87,7 +87,7 @@ const SignInForm = () => {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Password"
+                            label="Пароль"
                             sx={{
                                 backgroundColor: "background.default",
                                 borderRadius: 2

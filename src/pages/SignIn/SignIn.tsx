@@ -24,7 +24,7 @@ const SignIn = () => {
                         <Logo color={"white"}/>
                     </Box>
                     <Box
-                        paddingTop={'179px'}
+                        paddingTop={'16%'}
                     >
                         <SignInForm/>
                     </Box>
