@@ -1,128 +1,155 @@
-import { useSignInMutation } from "../../services/SignInService";
-// import {ISignInRequest} from "../../models/ISignInRequest";
 import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  Link,
-  OutlinedInput,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    IconButton,
+    InputAdornment,
+    Link,
+    TextField,
+    Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import React from "react";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+
+import {useSignInMutation} from "../../services/SignInService";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {
+    setUsernameError,
+    setPasswordError,
+    setShowPassword
+} from "./signInFormSlice";
 
 const SignInForm = () => {
-  const [signIn /*{data, isLoading, isError}*/] = useSignInMutation();
-  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    event.nativeEvent.target;
-    await signIn({ username: "test", password: "pwd" });
-  };
-  const [showPassword, setShowPassword] = useState(false);
+    const [signIn, {/*data,*/ isError, reset}] = useSignInMutation();
+    const {showPassword, passwordError, usernameError, isUsernameError, isPasswordError} = useAppSelector(state => state.signInReducer);
+    const dispatch = useAppDispatch();
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.nativeEvent.target as HTMLFormElement);
+        const username = formData.get('username')?.toString();
+        const password = formData.get('password')?.toString();
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
+        if (!username || !password) {
+            dispatch(setUsernameError(username ? "" : "Введите логин"));
+            dispatch(setPasswordError(password ? "" : "Введите пароль"));
+            reset();
+            return;
+        }
+        await signIn({username, password});
+        // TODO: сохранить токен от бекенда
+    };
 
-  return (
-    <Box component="section">
-      <Typography component="h1" variant="h4" color={"primary.contrastText"}>
-        Авторизуйтесь, пожалуйста
-      </Typography>
-      <Box
-        bgcolor={"background.paper"}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        width={"460px"}
-        marginTop={8}
-        borderRadius={4}
-      >
-        <Box
-          component="form"
-          noValidate
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          width={"380px"}
-          padding={"40px"}
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Логин"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            InputProps={{
-              sx: {
-                backgroundColor: "background.default",
-                borderRadius: 2,
-              },
-            }}
-          />
+    const handleClickShowPassword = () => dispatch(setShowPassword(!showPassword));
 
-          <FormControl sx={{ mt: 2 }} fullWidth variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Пароль
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              required
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Пароль"
-              sx={{
-                backgroundColor: "background.default",
-                borderRadius: 2,
-              }}
-            />
-          </FormControl>
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
+        event.preventDefault();
+    };
 
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            size={"large"}
-            sx={{ mt: 3, mb: 2, width: 160, borderRadius: 2 }}
-          >
-            Войти
-          </Button>
+    return (
+        <Box component="section" width={616} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+            <Typography
+                component="h1"
+                variant="h4"
+                textAlign={"center"}
+                color={"primary"}
+                fontWeight={"bold"}
+                lineHeight={"130%"}
+                letterSpacing={"0.34px"}
+            >
+                Авторизуйтесь для входа <br/> в Лента.Спрос
+            </Typography>
+            <Box
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"center"}
+                width={460}
+                marginTop={5}
+                borderRadius={4}
+                sx={{
+                    boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);"
+                }}
+            >
+                <Box
+                    component="form"
+                    noValidate
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                    width={"380px"}
+                    py={10}
+                    onSubmit={handleSubmit}
+                >
+                    <TextField
+                        error={isUsernameError || isError}
+                        required
+                        fullWidth
+                        id="username"
+                        label="Логин"
+                        name="username"
+                        autoComplete="username"
+                        helperText={isError ? "Логин или пароль введены не верно" : usernameError}
+                        autoFocus
+                        InputProps={{
+                            sx: {
+                                borderRadius: 2,
+                            },
+                        }}
+                    />
 
-          <Link
-            href="#"
-            variant="body2"
-            sx={{ width: "100%" }}
-            textAlign={"center"}
-          >
-            Забыли пароль?
-          </Link>
+                    <TextField
+                        sx={{mt: 6}}
+                        error={isPasswordError || isError}
+                        required
+                        fullWidth
+                        id="password"
+                        label="Пароль"
+                        name="password"
+                        autoComplete="password"
+                        helperText={isError ? "" : passwordError}
+                        autoFocus
+                        type={showPassword ? "text" : "password"}
+                        InputProps={{
+                            sx: {
+                                borderRadius: 2,
+                            },
+                            endAdornment:
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                        }}
+                    />
+
+                    <Button
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        size={"large"}
+                        sx={{mt: 8, mb: 5, width: 160, height: 46, borderRadius: 2}}
+                    >
+                        Войти
+                    </Button>
+
+                    <Link
+                        href="#"
+                        variant="body2"
+                        sx={{width: "100%"}}
+                        textAlign={"center"}
+                    >
+                        Забыли пароль?
+                    </Link>
+                </Box>
+            </Box>
         </Box>
-      </Box>
-    </Box>
-  );
+    );
 };
 
 export default SignInForm;
