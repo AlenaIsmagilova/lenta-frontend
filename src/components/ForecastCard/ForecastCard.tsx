@@ -25,7 +25,7 @@ const ForecastCard = ({growDirection, title, from, to}: IForecastCardProps) => {
         boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);",
         backgroundImage: `url(${growDirection ? stairsUp : stairsDown})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "226px 52px"
+        backgroundPosition: "226px 50%"
       }}
     >
       <Box>
