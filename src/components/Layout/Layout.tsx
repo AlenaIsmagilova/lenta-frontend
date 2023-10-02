@@ -11,14 +11,21 @@ interface ILayoutProps {
 
 const Layout = ({children}: ILayoutProps) => {
   return (
-    <>
+    <Box
+      display={"flex"}
+    >
       <Sidebar/>
-      <Header>
-        <Navigation/>
-        <ProfileInfo/>
-      </Header>
-      <Box p={8}>{children}</Box>
-    </>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <Header>
+          <Navigation/>
+          <ProfileInfo/>
+        </Header>
+        <Box component={"main"} py={8} pl={6} pr={8}>{children}</Box>
+      </Box>
+    </Box>
   );
 };
 
