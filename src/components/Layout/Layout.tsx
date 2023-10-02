@@ -3,6 +3,7 @@ import Navigation from "../Navigation/Navigation";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";
 import Sidebar from "../Sidebar/Sidebar";
 import {ReactNode} from "react";
+import {Box} from "@mui/material";
 
 interface ILayoutProps {
   children: ReactNode
@@ -16,7 +17,7 @@ const Layout = ({children}: ILayoutProps) => {
         <Navigation/>
         <ProfileInfo/>
       </Header>
-      {children}
+      <Box p={8}>{children}</Box>
     </>
   );
 };
