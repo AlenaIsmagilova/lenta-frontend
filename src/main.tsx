@@ -6,31 +6,32 @@ import {setupStore} from "./app/store";
 import SignIn from "./pages/SignIn/SignIn";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import lentaTheme from "./app/assets/styles/theeme";
+import Layout from "./components/Layout/Layout";
 
 const store = setupStore();
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <></>,
-    },
-    {
-        path: "/signin",
-        element: <SignIn/>,
-    },
-    {
-        path: "/statistics",
-        element: <></>,
-    },
+  {
+    path: "/",
+    element: <Layout/>,
+  },
+  {
+    path: "/signin",
+    element: <SignIn/>,
+  },
+  {
+    path: "/statistics",
+    element: <></>,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <ThemeProvider theme={lentaTheme}>
-                <CssBaseline/>
-                <RouterProvider router={router}/>
-            </ThemeProvider>
-        </Provider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={lentaTheme}>
+        <CssBaseline/>
+        <RouterProvider router={router}/>
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
 );
