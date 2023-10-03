@@ -1,63 +1,44 @@
 import {
-  Box, Button,
-  FormControl,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Theme,
-  useTheme
+  Box, Typography
 } from "@mui/material";
 import {useState} from "react";
 
-import DropDownArrow from "../../app/images/down.svg";
+import FilterDropDown from "../FilterDropDown/FilterDropDown";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+const cities = [
+  "Москва",
+  "Санкт-Петербург",
+  "Краснодар",
+  "Казань",
+  "Новосибирск",
+  "Омск",
+  "Иркутск",
+  "Владивосток"
 ];
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
+const stores = [
+  "ТК Москва",
+  "ТК Санкт-Петербург",
+  "ТК Краснодар",
+  "ТК Казань",
+  "ТК Новосибирск",
+  "ТК Омск",
+  "ТК Иркутск",
+  "ТК Владивосток"
+];
 const FilterForm = () => {
-  const theme = useTheme();
-  const [personName, setPersonName] = useState<string[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: {value},
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
+  const [city, setCity] = useState<string[]>([]);
+  const [store, setStore] = useState<string[]>([]);
+  const label = (text: string, pt: number = 0) => (<Typography
+    component="h3"
+    fontSize={18}
+    fontWeight={"bold"}
+    lineHeight={"125%"}
+    letterSpacing={"0.18px"}
+    pt={pt}
+  >
+    {text}
+  </Typography>);
 
   const handleSubmit = () => {
     console.log("Фильтры применились");
@@ -70,57 +51,18 @@ const FilterForm = () => {
       display={"flex"}
       flexDirection={"column"}
       width={"100%"}
+      mt={13}
       onSubmit={handleSubmit}
     >
-      <FormControl fullWidth={true} sx={{m: 1, mt: 3}}>
-        <Select
-          multiple
-          displayEmpty
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput/>}
-          IconComponent={(props) => (
-            <Button {...props}
-                    borderRadius={"0px 8px 8px 0px"}
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      mt: "-15px",
-                      mr: "-6px",
-                      p: "10px",
-                      minWidth: "unset",
-                      borderLeft: '1px solid #D5D5D6',
-                      backgroundColor: "background.paper"
-                    }}>
-              <Box component={"img"} src={DropDownArrow}/>
-            </Button>
-          )}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return "Выберите город";
-            }
+      {label("Город")}
+      <FilterDropDown currentValue={city} label={"Выберите город"} values={cities} setCurrentValue={setCity}/>
 
-            return selected.join(', ');
-          }}
-          MenuProps={MenuProps}
-          inputProps={{'aria-label': 'Without label'}}
-          sx={{height: '44px', borderRadius: 2, bgcolor: "white"}}
-        >
-          <MenuItem disabled value="">
-            Выберите город
-          </MenuItem>
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      {label("Торговый комплекс", 7)}
+      <FilterDropDown currentValue={store} label={"Выберите ТК/Группу ТК"} values={stores} setCurrentValue={setStore}/>
 
+      {label("Количество дней", 7)}
+
+      {label("Товары", 7)}
     </Box>
   );
 };
