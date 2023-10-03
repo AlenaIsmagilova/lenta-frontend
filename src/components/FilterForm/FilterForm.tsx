@@ -4,6 +4,7 @@ import {
 import {useState} from "react";
 
 import FilterDropDown from "../FilterDropDown/FilterDropDown";
+import NumberSelect from "../NumberSelect/NumberSelect";
 
 const cities = [
   "Москва",
@@ -29,6 +30,7 @@ const stores = [
 const FilterForm = () => {
   const [city, setCity] = useState<string[]>([]);
   const [store, setStore] = useState<string[]>([]);
+  const [days, setDays] = useState<number>(14);
   const label = (text: string, pt: number = 0) => (<Typography
     component="h3"
     fontSize={18}
@@ -61,7 +63,8 @@ const FilterForm = () => {
       <FilterDropDown currentValue={store} label={"Выберите ТК/Группу ТК"} values={stores} setCurrentValue={setStore}/>
 
       {label("Количество дней", 7)}
-
+      <NumberSelect value={days} setValue={setDays}/>
+      
       {label("Товары", 7)}
     </Box>
   );
