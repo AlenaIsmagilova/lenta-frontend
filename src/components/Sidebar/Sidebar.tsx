@@ -1,11 +1,17 @@
-import { Logo } from "../../ui/logo/logo";
-import styles from "./Sidebar.module.css";
+import {Logo} from "../../ui/logo/logo";
+import {Box} from "@mui/material";
 
 const Sidebar = () => {
   return (
-    <div className={styles.container}>
-      <Logo />
-    </div>
+    <Box
+      component={"aside"}
+      display={"flex"}
+      flexDirection={"column"}
+      width={308}
+      p={8}
+    >
+      <Logo/>
+    </Box>
   );
 };
 
