@@ -1,0 +1,168 @@
+.table {
+  table-layout: fixed;
+}
+td,
+th {
+  vertical-align: top;
+  width: 100px;
+  border-right: 0.5px solid var(--color-interface-border-tablecell);
+  height: 36px;
+}
+.col1 {
+  position: absolute;
+  text-align: left;
+  left: 0;
+  width: 40px;
+  padding: 8px;
+}
+.col2 {
+  position: absolute;
+  text-align: left;
+  left: 40px;
+  width: 118px;
+  padding: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.col3 {
+  position: absolute;
+  text-align: left;
+  left: 158px;
+  width: 102px;
+  padding: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.col4 {
+  position: absolute;
+  text-align: left;
+  left: 260px;
+  width: 173px;
+  padding: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.col5 {
+  position: absolute;
+  text-align: left;
+  left: 433px;
+  width: 178px;
+  padding: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.col6 {
+  position: absolute;
+  text-align: left;
+  left: 611px;
+  width: 201px;
+  padding: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.outer {
+  position: relative;
+  margin-left: 5px;
+}
+.inner {
+  overflow-x: scroll;
+  overflow-y: visible;
+  width: 500px;
+  margin-left: 809px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(213, 213, 214, 1) rgba(233, 234, 234, 0.5);
+}
+
+.inner::-webkit-scrollbar {
+  width: 12px;
+  height: 8px;
+}
+.inner::-webkit-scrollbar-track {
+  background: rgba(233, 234, 234, 0.5);
+  height: 8px;
+}
+.inner::-webkit-scrollbar-thumb {
+  background-color: rgba(213, 213, 214, 1);
+  border-radius: 20px;
+  border: 3px solid rgba(233, 234, 234, 0.5);
+  height: 8px;
+  box-sizing: border-box;
+}
+
+.head {
+  background-color: var(--color-interface-blue-light);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 125%;
+  padding: 7px;
+}
+
+.columnDate {
+  padding: 7px;
+}
+
+.border {
+  border-bottom: 2px solid var(--color-interface-blue);
+}
+
+.input {
+  margin: 2px;
+  width: 20px;
+  height: 20px;
+}
+
+.footer {
+  max-width: 896px;
+  min-height: 64px;
+  border-radius: 16px;
+  padding: 16px 24px 16px 12px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 332px;
+}
+
+.sumContainer {
+  display: flex;
+  align-items: center;
+}
+
+.deleteContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: none;
+}
+
+.sumCheckbox {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.sumText {
+  margin: 0;
+  font-family: Gilroy;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.trashImage {
+  margin-right: 8px;
+}
+
+.productSum {
+  margin: 409px 0 28px 0;
+  text-align: end;
+}
