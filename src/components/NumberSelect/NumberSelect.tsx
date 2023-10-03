@@ -3,8 +3,8 @@ import {Box, Button, useTheme} from "@mui/material";
 interface INumberSelect {
   value: number,
   setValue: Function,
-  min: number,
-  max: number
+  min?: number,
+  max?: number
 }
 
 const NumberSelect = ({value, setValue, min = 1, max = 14}: INumberSelect) => {
@@ -15,6 +15,7 @@ const NumberSelect = ({value, setValue, min = 1, max = 14}: INumberSelect) => {
     <Box
       display={"flex"}
       height={44}
+      mt={2}
     >
       <Button
         onClick={handleDecrement}
