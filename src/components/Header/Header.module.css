@@ -1,5 +1,4 @@
 .container {
-  min-width: 1640px;
   max-height: 82px;
   background-color: var(--color-interface-white);
   box-shadow: var(--common-element-shadow);

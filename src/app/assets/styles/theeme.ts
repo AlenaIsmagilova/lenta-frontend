@@ -21,7 +21,8 @@ const theme = createTheme({
       paper: '#E9EAEA'
     },
     secondary: {
-      main: '#FFB900'
+      main: '#FFB900',
+      light: 'rgba(0, 60, 150, 0.05)'
     },
     text: {
       primary: '#2C2A29',
@@ -85,7 +86,15 @@ const theme = createTheme({
         }
       }
     },
-
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          "& .MuiChip-deleteIcon": {
+            margin: "0 10px 0 -6px"
+          },
+        }
+      }
+    }
   }
 }, ruRU);
 
