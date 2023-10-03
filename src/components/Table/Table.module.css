@@ -4,7 +4,7 @@
 td,
 th {
   vertical-align: top;
-  width: 100px;
+  /* width: 100px; */
   border-right: 0.5px solid var(--color-interface-border-tablecell);
   height: 36px;
 }
@@ -72,7 +72,7 @@ th {
 .inner {
   overflow-x: scroll;
   overflow-y: visible;
-  width: 500px;
+  width: 739px;
   margin-left: 809px;
   scrollbar-width: thin;
   scrollbar-color: rgba(213, 213, 214, 1) rgba(233, 234, 234, 0.5);
@@ -104,6 +104,7 @@ th {
 
 .columnDate {
   padding: 7px;
+  min-width: 60px;
 }
 
 .border {
@@ -129,7 +130,6 @@ th {
 .mainContainer {
   display: flex;
   flex-direction: column;
-  margin-left: 332px;
 }
 
 .sumContainer {
@@ -154,8 +154,6 @@ th {
   margin: 0;
   font-family: Gilroy;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
 }
 
 .trashImage {
@@ -163,6 +161,6 @@ th {
 }
 
 .productSum {
-  margin: 409px 0 28px 0;
+  margin: 38px 0 28px 0;
   text-align: end;
 }
