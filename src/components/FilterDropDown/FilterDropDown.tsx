@@ -60,10 +60,10 @@ const FilterDropDown = ({currentValue, setCurrentValue, values, label}: IFilterD
         input={<OutlinedInput/>}
         IconComponent={(props) => (
           <Button {...props}
-                  borderRadius={"0px 8px 8px 0px"}
                   sx={{
                     width: 44,
                     height: 44,
+                    borderRadius: "0px 8px 8px 0px",
                     mt: "-15px",
                     mr: "-6px",
                     p: "10px",
