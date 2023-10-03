@@ -18,7 +18,7 @@ const theme = createTheme({
     },
     background: {
       default: '#FFFFFF',
-      paper: '#E9EAEA'
+      paper: '#F8F8F8'
     },
     secondary: {
       main: '#FFB900',
@@ -76,6 +76,10 @@ const theme = createTheme({
         input:-webkit-autofill {
          -webkit-text-fill-color: #2C2A29;
           transition: all 5000s ease-in-out;
+        }
+
+        #root {
+          height: 100vh;
         }
       `
     },

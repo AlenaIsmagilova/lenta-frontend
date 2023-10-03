@@ -18,6 +18,7 @@ const Layout = ({children}: ILayoutProps) => {
       <Box
         display={"flex"}
         flexDirection={"column"}
+        maxWidth={1612}
       >
         <Header>
           <Navigation/>
