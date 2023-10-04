@@ -5,6 +5,7 @@ import {useState} from "react";
 
 import FilterDropDown from "../FilterDropDown/FilterDropDown";
 import NumberSelect from "../NumberSelect/NumberSelect";
+import ProductsSelect from "../ProductsSelect/ProductsSelect";
 
 const cities = [
   "Москва",
@@ -27,6 +28,25 @@ const stores = [
   "ТК Иркутск",
   "ТК Владивосток"
 ];
+
+const productsResponse = {
+  "data": [
+    {
+      "sku": "Товар 1",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 1",
+      "uom": 1
+    },
+    {
+      "sku": "Товар 2",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 1",
+      "uom": 1
+    },
+  ]
+};
 const FilterForm = () => {
   const [city, setCity] = useState<string[]>([]);
   const [store, setStore] = useState<string[]>([]);
@@ -64,8 +84,9 @@ const FilterForm = () => {
 
       {label("Количество дней", 7)}
       <NumberSelect value={days} setValue={setDays}/>
-      
+
       {label("Товары", 7)}
+      <ProductsSelect products={productsResponse}/>
     </Box>
   );
 };
