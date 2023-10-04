@@ -23,7 +23,8 @@ const ProductsCheckboxList = ({data}: IProductsCheckboxListProps) => {
   };
 
   return (
-    <List sx={{width: '100%', bgcolor: "white", mt: 4, maxHeight: 480, overflow: 'auto',}} dense={true}>
+    <List sx={{width: 280, bgcolor: "white", margin: "32px 16px 0 16px", maxHeight: 480, overflow: 'auto'}}
+          dense={true}>
       {data.map(item => (
         <ListItem
           key={item.sku}

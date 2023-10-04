@@ -9,10 +9,9 @@ const Sidebar = () => {
       display={"flex"}
       flexDirection={"column"}
       width={308}
-      p={8}
       bgcolor={"background.paper"}
     >
-      <Logo/>
+      <Box p={8}><Logo/></Box>
       <FilterForm/>
     </Box>
   );

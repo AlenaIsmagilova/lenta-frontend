@@ -18,10 +18,9 @@ const ProductsSelect = ({products}: IProductsSelectProps) => {
     <Box mt={3}>
       <OutlinedInput
         onChange={handleSearch}
-        fullWidth={true}
         startAdornment={<Box component={"img"} src={searchIcon} pr={2}/>}
         placeholder={"Найти"}
-        sx={{height: 44, bgcolor: "white", borderRadius: 2}}
+        sx={{height: 44, bgcolor: "white", borderRadius: 2, mx: 8, width: 244}}
       />
       <ProductsCheckboxList data={filteredData}/>
     </Box>
