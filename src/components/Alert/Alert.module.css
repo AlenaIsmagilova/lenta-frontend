@@ -28,12 +28,14 @@
   align-items: center;
   background-color: var(--color-interface-grey);
   border: none;
+  cursor: pointer;
 }
 
-.sumCheckbox {
+.sumCheckbox:checked {
   margin-right: 8px;
   width: 20px;
   height: 20px;
+  background-color: var(--color-interface-blue);
 }
 
 .sumText {

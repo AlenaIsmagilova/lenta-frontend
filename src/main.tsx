@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { setupStore } from "./app/store";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import lentaTheme from "./app/assets/styles/theeme";
-import BasicTable from "./components/Table/Table";
 import "./app/assets/styles/styles.css";
 
 import SignIn from "./pages/SignIn/SignIn";
