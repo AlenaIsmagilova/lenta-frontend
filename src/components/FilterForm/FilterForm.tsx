@@ -35,9 +35,9 @@ const products: IProductItem[] = [];
 for (let i = 1; i < 1001; i++) {
   products.push({
     pr_sku_id: `Товар ${i}`,
-    pr_cat_id: `Категория ${i}`,
-    pr_group_id: `Группа ${i}`,
-    pr_subcat_id: `Подкатегория ${i}`,
+    pr_cat_id: `Категория ${i % 3 + 1}-${i % 3 + 1}`,
+    pr_group_id: `Группа ${i % 3 + 1}`,
+    pr_subcat_id: `Подкатегория ${i % 3 + 1}-${i % 3 + 1}-${i % 3 + 1}`,
     pr_uom_id: 1
   });
 }
