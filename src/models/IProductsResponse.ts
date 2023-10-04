@@ -1,11 +1,12 @@
 export interface IProductItem {
-  sku: string,
-  group: string,
-  category: string,
-  subcategory: string,
-  uom: number
+  pr_sku_id: string,
+  pr_group_id: string,
+  pr_cat_id: string,
+  pr_subcat_id: string,
+  pr_uom_id: number
 }
 
 export interface IProductsResponse {
   data: IProductItem[]
 }
+

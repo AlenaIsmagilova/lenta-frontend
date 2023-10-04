@@ -27,21 +27,21 @@ const ProductsCheckboxList = ({data}: IProductsCheckboxListProps) => {
           dense={true}>
       {data.map(item => (
         <ListItem
-          key={item.sku}
+          key={item.pr_sku_id}
           sx={{px: 0}}
         >
-          <ListItemButton role={undefined} onClick={handleToggle(item.sku)} dense>
+          <ListItemButton role={undefined} onClick={handleToggle(item.pr_sku_id)} dense>
             <ListItemIcon sx={{minWidth: "unset"}}>
               <Checkbox
                 edge="start"
-                checked={checked.indexOf(item.sku) !== -1}
+                checked={checked.indexOf(item.pr_sku_id) !== -1}
                 tabIndex={-1}
                 disableRipple
-                inputProps={{'aria-labelledby': item.sku}}
+                inputProps={{'aria-labelledby': item.pr_sku_id}}
               />
             </ListItemIcon>
-            <ListItemText id={item.sku} primary={item.sku}
-                          secondary={`${item.group} / ${item.category} / ${item.subcategory}`}/>
+            <ListItemText id={item.pr_sku_id} primary={item.pr_sku_id}
+                          secondary={`${item.pr_group_id} / ${item.pr_cat_id} / ${item.pr_subcat_id}`}/>
           </ListItemButton>
         </ListItem>
       ))}

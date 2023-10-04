@@ -7,6 +7,7 @@ import FilterDropDown from "../FilterDropDown/FilterDropDown";
 import NumberSelect from "../NumberSelect/NumberSelect";
 import ProductsSelect from "../ProductsSelect/ProductsSelect";
 import closeIcon from "../../app/images/close.svg";
+import {IProductItem} from "../../models/IProductsResponse";
 
 const cities = [
   "Москва",
@@ -30,53 +31,17 @@ const stores = [
   "ТК Владивосток"
 ];
 
-const productsResponse = {
-  "data": [
-    {
-      "sku": "Товар 1",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 1",
-      "uom": 1
-    },
-    {
-      "sku": "Товар 2",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 1",
-      "uom": 1
-    },
-    {
-      "sku": "Товар 3",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 1",
-      "uom": 1
-    },
+const products: IProductItem[] = [];
+for (let i = 1; i < 1001; i++) {
+  products.push({
+    pr_sku_id: `Товар ${i}`,
+    pr_cat_id: `Категория ${i}`,
+    pr_group_id: `Группа ${i}`,
+    pr_subcat_id: `Подкатегория ${i}`,
+    pr_uom_id: 1
+  });
+}
 
-    {
-      "sku": "Товар 4",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 2",
-      "uom": 1
-    },
-    {
-      "sku": "Товар 5",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 2",
-      "uom": 1
-    },
-    {
-      "sku": "Товар 6",
-      "group": "Группа 1",
-      "category": "Категория 1",
-      "subcategory": "Подкатегория 2",
-      "uom": 1
-    },
-  ]
-};
 const FilterForm = () => {
   const [city, setCity] = useState<string[]>([]);
   const [store, setStore] = useState<string[]>([]);
@@ -119,7 +84,7 @@ const FilterForm = () => {
         {label("Товары", 7)}
       </Box>
 
-      <ProductsSelect products={productsResponse}/>
+      <ProductsSelect products={{data: products}}/>
 
       <Box
         display={"flex"}

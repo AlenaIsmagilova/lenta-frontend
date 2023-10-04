@@ -12,7 +12,7 @@ interface IProductsSelectProps {
 const ProductsSelect = ({products}: IProductsSelectProps) => {
   const [filteredData, setFilteredData] = useState<IProductItem[]>(products.data);
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilteredData(products.data.filter(item => item.sku.includes(e.target.value)));
+    setFilteredData(products.data.filter(item => item.pr_sku_id.includes(e.target.value)));
   }
   return (
     <Box mt={3}>
