@@ -45,6 +45,35 @@ const productsResponse = {
       "subcategory": "Подкатегория 1",
       "uom": 1
     },
+    {
+      "sku": "Товар 3",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 1",
+      "uom": 1
+    },
+
+    {
+      "sku": "Товар 4",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 2",
+      "uom": 1
+    },
+    {
+      "sku": "Товар 5",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 2",
+      "uom": 1
+    },
+    {
+      "sku": "Товар 6",
+      "group": "Группа 1",
+      "category": "Категория 1",
+      "subcategory": "Подкатегория 2",
+      "uom": 1
+    },
   ]
 };
 const FilterForm = () => {
