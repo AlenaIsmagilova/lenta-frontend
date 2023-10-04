@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import classNames from "classnames";
 import styles from "./Table.module.css";
-import trash from "../../app/images/trash.svg";
+import Alert from "../Alert/Alert";
+import disk from "../../app/images/floppyDisk.svg";
 
 const hardData = [
   {
@@ -60,6 +61,7 @@ const hardForecast = [1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 const BasicTable = () => {
   const [dates, setDates] = useState<Array<string>>([]);
   const [allProducts, setAllProducts] = useState<number>(0);
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(true);
 
   const createArrayOfDates = () => {
     let prev = moment();
@@ -74,7 +76,7 @@ const BasicTable = () => {
   };
 
   const sumOfProduct = () => {
-    return hardData.length - 1;
+    return hardData.length;
   };
 
   useEffect(() => {
@@ -153,16 +155,9 @@ const BasicTable = () => {
           </table>
         </div>
       </div>
-      <div className={styles.footer}>
-        <div className={styles.sumContainer}>
-          <input className={styles.sumCheckbox} type="checkbox" />
-          <p className={styles.sumText}>Выбрано позиций:</p>
-        </div>
-        <button className={styles.deleteContainer}>
-          <img className={styles.trashImage} src={trash} alt="корзина" />
-          <p className={styles.sumText}>Удалить</p>
-        </button>
-      </div>
+      {isAlertOpen && (
+        <Alert isAlertMessage={false} extClassName={styles.footer} />
+      )}
     </div>
   );
 };
