@@ -2,7 +2,6 @@ import styles from "./Alert.module.css";
 import close from "../../app/images/close.svg";
 import trash from "../../app/images/trash.svg";
 import disk from "../../app/images/floppyDisk.svg";
-import { useState } from "react";
 
 export interface IAlertProps {
   extClassName: string;
@@ -11,6 +10,9 @@ export interface IAlertProps {
   alt?: string;
   isAlertMessage: boolean;
   clickCloseButton?: () => void;
+  countOfCheckedElement?: number;
+  deleteClick?: () => void;
+  sumChecked?: boolean;
 }
 
 const Alert = ({
@@ -20,6 +22,9 @@ const Alert = ({
   alt,
   isAlertMessage,
   clickCloseButton,
+  countOfCheckedElement,
+  deleteClick,
+  sumChecked,
 }: IAlertProps) => {
   function handleClickCloseBtn() {
     if (clickCloseButton) {
@@ -33,8 +38,14 @@ const Alert = ({
           <img className={styles.icon} src={icon} alt={alt} />
         ) : (
           <>
-            <input className={styles.sumCheckbox} type="checkbox" />
-            <p className={styles.sumText}>Выбрано позиций:</p>
+            <input
+              className={styles.sumCheckbox}
+              type="checkbox"
+              checked={sumChecked}
+            />
+            <p className={styles.sumText}>
+              Выбрано позиций: {countOfCheckedElement}
+            </p>
           </>
         )}
         <p className={styles.sumText}>{content}</p>
@@ -49,7 +60,7 @@ const Alert = ({
           </div>
         ) : (
           <>
-            <button className={styles.deleteContainer}>
+            <button className={styles.deleteContainer} onClick={deleteClick}>
               <img className={styles.trashImage} src={trash} alt="корзина" />
             </button>
             <p className={styles.sumText}>Удалить</p>

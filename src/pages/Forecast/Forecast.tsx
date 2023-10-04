@@ -1,14 +1,14 @@
 import Layout from "../../components/Layout/Layout";
 import ForecastTemplateRow from "../../components/ForecastTemplateRow/ForecastTemplateRow";
 import ForecastControlRow from "../../components/ForecastControlRow/ForecastControlRow";
-import BasicTable from "../../components/Table/Table";
+import TableComponent from "../../components/Table/TableComponent";
 
 const Forecast = () => {
   return (
     <Layout>
       <ForecastTemplateRow />
       <ForecastControlRow />
-      <BasicTable />
+      <TableComponent />
     </Layout>
   );
 };
