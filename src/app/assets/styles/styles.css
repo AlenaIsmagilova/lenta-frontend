@@ -4,6 +4,7 @@
   --color-interface-blue: rgba(0, 60, 150, 1);
   --color-interface-blue-light: rgba(180, 200, 255, 1);
   --color-interface-border-tablecell: rgba(233, 234, 234, 0.5);
+  --color-interface-grey: rgba(233, 234, 234, 1);
 
   --common-element-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08),
     0 10px 20px -5px rgba(0, 0, 0, 0.08);
@@ -17,6 +18,7 @@
   position: relative;
   display: flex;
   max-width: 1920px;
+  height: 100vh;
 }
 
 body {
