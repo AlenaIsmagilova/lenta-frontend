@@ -1,51 +1,19 @@
 import {
   Box, Button, Typography
 } from "@mui/material";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 
 import FilterDropDown from "../../components/FilterDropDown/FilterDropDown";
 import NumberSelect from "../../components/NumberSelect/NumberSelect";
 import ProductsSelect from "../../components/ProductsSelect/ProductsSelect";
 import closeIcon from "../../app/images/close.svg";
-import {IProductItem} from "../../models/IProductItem";
 
 import {
   setFormFilter, initialState
 } from "./filterFormSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-
-const citiesList = [
-  "Москва",
-  "Санкт-Петербург",
-  "Краснодар",
-  "Казань",
-  "Новосибирск",
-  "Омск",
-  "Иркутск",
-  "Владивосток"
-];
-
-const storesList = [
-  "ТК Москва",
-  "ТК Санкт-Петербург",
-  "ТК Краснодар",
-  "ТК Казань",
-  "ТК Новосибирск",
-  "ТК Омск",
-  "ТК Иркутск",
-  "ТК Владивосток"
-];
-
-const productsList: IProductItem[] = [];
-for (let i = 1; i < 1001; i++) {
-  productsList.push({
-    pr_sku_id: `Товар ${i}`,
-    pr_cat_id: `Категория ${i % 3 + 1}-${i % 3 + 1}`,
-    pr_group_id: `Группа ${i % 3 + 1}`,
-    pr_subcat_id: `Подкатегория ${i % 3 + 1}-${i % 3 + 1}-${i % 3 + 1}`,
-    pr_uom_id: 1
-  });
-}
+import {useGetShopsQuery} from "../../services/ShopService";
+import {useGetCategoriesQuery} from "../../services/CategoriesService";
 
 const FilterForm = () => {
   const reduxFilter = useAppSelector(state => state.filterFormReducer);
@@ -53,8 +21,14 @@ const FilterForm = () => {
   const [stores, setStores] = useState<string[]>(reduxFilter.stores);
   const [forecastDays, setForecastDays] = useState<number>(reduxFilter.forecastDays);
   const [products, setProducts] = useState<{ [key: string]: boolean }>(reduxFilter.products);
+
   const dispatch = useAppDispatch();
 
+  const {data: shopList} = useGetShopsQuery('');
+  const {data: productsList} = useGetCategoriesQuery('');
+
+  const citiesList = useMemo(() => shopList ? Array.from(new Set(shopList.data.map(item => item.st_city_id))) : [], [shopList]);
+  const storesList = useMemo(() => shopList ? shopList.data.map(item => item.st_id) : [], [shopList]);
   const label = (text: string, pt: number = 0) => (<Typography
     component="h3"
     fontSize={18}
@@ -117,7 +91,7 @@ const FilterForm = () => {
       </Box>
 
       <ProductsSelect
-        products={{data: productsList}}
+        products={productsList ?? {data: []}}
         selectedProducts={products}
         setSelectedProducts={setProducts}
       />
