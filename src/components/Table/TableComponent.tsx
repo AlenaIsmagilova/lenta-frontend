@@ -66,6 +66,22 @@ const rows = [
 ];
 
 const hardForecast = [1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+const clearHardForecast = [
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+];
 
 const TableComponent = () => {
   const [dates, setDates] = useState<Array<string>>([]);
@@ -74,6 +90,15 @@ const TableComponent = () => {
   const [checked, setChecked] = useState<boolean[]>(
     new Array(rows.length).fill(false)
   );
+
+  const clearArray = new Array(15).fill({
+    tk: "",
+    group: "",
+    category: "",
+    subcat: " ",
+    product: "  ",
+    id: null,
+  });
 
   const createArrayOfDates = () => {
     let prev = moment();
@@ -121,7 +146,7 @@ const TableComponent = () => {
 
   return (
     <>
-      <p className={styles.productSum}>Всего позиции: {countOfAllProducts}</p>
+      {/* <p className={styles.productSum}>Всего позиции: {countOfAllProducts}</p>
       <TableContainer component={Paper} sx={{ width: "1556px" }}>
         <Table size="small">
           <TableHead
@@ -195,6 +220,99 @@ const TableComponent = () => {
                 </TableCell>
                 {hardForecast.map((el) => (
                   <TableCell>{el}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {isAlertOpen && (
+        <Alert
+          isAlertMessage={false}
+          extClassName={styles.footer}
+          countOfCheckedElement={checked.filter((el) => el).length}
+          deleteClick={deleteClick}
+          sumChecked={checked.includes(true) ? true : false}
+        />
+      )} */}
+      <p className={styles.productSum}>Всего позиции: {countOfAllProducts}</p>
+      <TableContainer component={Paper} sx={{ width: "1556px" }}>
+        <Table size="small">
+          <TableHead
+            sx={{
+              backgroundColor: "primary.light",
+              borderBottom: "2px solid primary.main",
+            }}
+          >
+            <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={checked.every((i) => i)}
+                  onChange={handleChangeChecked}
+                />
+              </TableCell>
+              <TableCell>TK</TableCell>
+              <TableCell>Группа</TableCell>
+              <TableCell>Категория</TableCell>
+              <TableCell>Подкатегория</TableCell>
+              <TableCell>Товар</TableCell>
+              {dates.map((date, i) => (
+                <TableCell key={i}>{date}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody
+            sx={{
+              "& .MuiBox-root": {
+                width: "161px",
+                display: "block",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                boxSizing: "border-box",
+              },
+              "& .MuiTableCell-root": {
+                borderRight: "0.5px solid light-grey",
+                height: "36px",
+              },
+            }}
+          >
+            {clearArray.map((row, i) => (
+              <TableRow
+                component="tr"
+                // scope="row"
+                key={i}
+                sx={{
+                  backgroundColor:
+                    i % 2 === 0 ? "background.paper" : "background.default",
+                  heigth: "36px",
+                }}
+              >
+                <TableCell padding="checkbox" component="td">
+                  <Checkbox
+                    checked={checked[i]}
+                    onChange={(e) => handleSmallCheckbox(e, i)}
+                  />
+                </TableCell>
+                <TableCell component="td">
+                  <Box>{row.tk}</Box>
+                </TableCell>
+                <TableCell component="td">
+                  <Box>{row.group}</Box>
+                </TableCell>
+                <TableCell component="td">
+                  <Box>{row.category}</Box>
+                </TableCell>
+                <TableCell component="td">
+                  <Box>{row.subcat}</Box>
+                </TableCell>
+                <TableCell component="td">
+                  <Box>{row.product}</Box>
+                </TableCell>
+                {clearHardForecast.map((el, i) => (
+                  <TableCell key={i} component="td">
+                    {el}
+                  </TableCell>
                 ))}
               </TableRow>
             ))}
