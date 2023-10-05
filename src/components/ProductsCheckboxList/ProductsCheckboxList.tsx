@@ -2,6 +2,7 @@ import {IProductItem} from "../../models/IProductsResponse";
 import {Checkbox, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {memo, useState} from "react";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import {IProductsTree} from "../../models/IProductsTree";
 
 interface IProductsCheckboxListProps {
   data: IProductItem[],
@@ -33,7 +34,7 @@ const ProductsCheckboxList = memo(({data, selectedProducts, setSelectedProducts}
     });
   };
 
-  const productsTree: { [key: string]: { [key: string]: { [key: string]: string[] } } } = {};
+  const productsTree: IProductsTree = {};
   for (let item of data) {
     if (!productsTree[item.pr_group_id]) productsTree[item.pr_group_id] = {};
     if (!productsTree[item.pr_group_id][item.pr_cat_id]) productsTree[item.pr_group_id][item.pr_cat_id] = {};
@@ -55,7 +56,12 @@ const ProductsCheckboxList = memo(({data, selectedProducts, setSelectedProducts}
             tabIndex={-1}
             disableRipple
             inputProps={{'aria-labelledby': text}}
-            onClick={handleToggle(text)}
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+            onChange={() => {
+              handleToggle(text);
+            }}
           />
         </ListItemIcon>
         <ListItemText id={text} primary={text}/>
@@ -69,18 +75,18 @@ const ProductsCheckboxList = memo(({data, selectedProducts, setSelectedProducts}
         <>
           {treeListItem(group, isCollapsed(group), 0)}
           <Collapse in={isCollapsed(group)} key={`${group}_collapse`}>
-            <List disablePadding>
+            <List disablePadding key={`${group}_list_items`}>
               {Object.keys(productsTree[group]).map(category => (
                 <>
                   {treeListItem(category, isCollapsed(category), 1)}
                   <Collapse in={isCollapsed(category)} key={`${category}_collapse`}>
-                    <List disablePadding>
+                    <List disablePadding key={`${category}_list_items`}>
                       {
                         Object.keys(productsTree[group][category]).map(subcategory => (
                           <>
                             {treeListItem(subcategory, isCollapsed(subcategory), 2)}
                             <Collapse in={isCollapsed(subcategory)} key={`${subcategory}_collapse`}>
-                              <List disablePadding>
+                              <List disablePadding key={`${subcategory}_list_items`}>
                                 {
                                   productsTree[group][category][subcategory].map(item => treeListItem(item, null, 3, false))
                                 }
