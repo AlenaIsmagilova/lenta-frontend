@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IAnyObject} from "../../models/IAnyObject";
 
 export interface IFilterFormSlice {
   cities: string[],
   stores: string[],
   forecastDays: number,
   statisticsPeriod: number,
-  products: { [key: string]: boolean }
+  products: IAnyObject
 }
 
 export const initialState: IFilterFormSlice = {

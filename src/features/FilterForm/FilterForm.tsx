@@ -7,7 +7,7 @@ import FilterDropDown from "../../components/FilterDropDown/FilterDropDown";
 import NumberSelect from "../../components/NumberSelect/NumberSelect";
 import ProductsSelect from "../../components/ProductsSelect/ProductsSelect";
 import closeIcon from "../../app/images/close.svg";
-import {IProductItem} from "../../models/IProductsResponse";
+import {IProductItem} from "../../models/IProductItem";
 
 import {
   setFormFilter, initialState

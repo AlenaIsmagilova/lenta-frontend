@@ -1,4 +1,4 @@
-import {IProductItem, IProductsResponse} from "../../models/IProductsResponse";
+import {IProductItem, IProductsResponse} from "../../models/IProductItem";
 import {Box, OutlinedInput} from "@mui/material";
 
 import searchIcon from "../../app/images/search_regular.svg";

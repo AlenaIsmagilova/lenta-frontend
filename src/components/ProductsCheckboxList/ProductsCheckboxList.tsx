@@ -1,4 +1,4 @@
-import {IProductItem} from "../../models/IProductsResponse";
+import {IProductItem} from "../../models/IProductItem";
 import {Checkbox, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {memo, useState} from "react";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
