@@ -256,8 +256,8 @@ const TableComponent = () => {
               <TableCell>Категория</TableCell>
               <TableCell>Подкатегория</TableCell>
               <TableCell>Товар</TableCell>
-              {dates.map((date) => (
-                <TableCell>{date}</TableCell>
+              {dates.map((date, i) => (
+                <TableCell key={i}>{date}</TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -279,38 +279,40 @@ const TableComponent = () => {
           >
             {clearArray.map((row, i) => (
               <TableRow
-                component="th"
-                scope="row"
-                key={row.id}
+                component="tr"
+                // scope="row"
+                key={i}
                 sx={{
                   backgroundColor:
                     i % 2 === 0 ? "background.paper" : "background.default",
                   heigth: "36px",
                 }}
               >
-                <TableCell padding="checkbox">
+                <TableCell padding="checkbox" component="td">
                   <Checkbox
                     checked={checked[i]}
                     onChange={(e) => handleSmallCheckbox(e, i)}
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell component="td">
                   <Box>{row.tk}</Box>
                 </TableCell>
-                <TableCell>
+                <TableCell component="td">
                   <Box>{row.group}</Box>
                 </TableCell>
-                <TableCell>
+                <TableCell component="td">
                   <Box>{row.category}</Box>
                 </TableCell>
-                <TableCell>
+                <TableCell component="td">
                   <Box>{row.subcat}</Box>
                 </TableCell>
-                <TableCell>
+                <TableCell component="td">
                   <Box>{row.product}</Box>
                 </TableCell>
-                {clearHardForecast.map((el) => (
-                  <TableCell>{el}</TableCell>
+                {clearHardForecast.map((el, i) => (
+                  <TableCell key={i} component="td">
+                    {el}
+                  </TableCell>
                 ))}
               </TableRow>
             ))}
