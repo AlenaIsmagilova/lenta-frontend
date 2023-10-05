@@ -10,6 +10,7 @@ import {
   useTheme
 } from "@mui/material";
 import DropDownArrow from "../../app/images/down.svg";
+import {memo} from "react";
 
 interface IFilterDropDown {
   currentValue: string[],
@@ -38,7 +39,7 @@ function getStyles(item: string, currentValue: readonly string[], theme: Theme) 
   };
 }
 
-const FilterDropDown = ({currentValue, setCurrentValue, values, label}: IFilterDropDown) => {
+const FilterDropDown = memo(({currentValue, setCurrentValue, values, label}: IFilterDropDown) => {
   const theme = useTheme();
 
   const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
@@ -100,6 +101,6 @@ const FilterDropDown = ({currentValue, setCurrentValue, values, label}: IFilterD
       </Select>
     </FormControl>
   );
-};
+});
 
 export default FilterDropDown;

@@ -3,13 +3,18 @@ import {
 } from "@mui/material";
 import {useState} from "react";
 
-import FilterDropDown from "../FilterDropDown/FilterDropDown";
-import NumberSelect from "../NumberSelect/NumberSelect";
-import ProductsSelect from "../ProductsSelect/ProductsSelect";
+import FilterDropDown from "../../components/FilterDropDown/FilterDropDown";
+import NumberSelect from "../../components/NumberSelect/NumberSelect";
+import ProductsSelect from "../../components/ProductsSelect/ProductsSelect";
 import closeIcon from "../../app/images/close.svg";
 import {IProductItem} from "../../models/IProductsResponse";
 
-const cities = [
+import {
+  setFormFilter, initialState
+} from "./filterFormSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+
+const citiesList = [
   "Москва",
   "Санкт-Петербург",
   "Краснодар",
@@ -20,7 +25,7 @@ const cities = [
   "Владивосток"
 ];
 
-const stores = [
+const storesList = [
   "ТК Москва",
   "ТК Санкт-Петербург",
   "ТК Краснодар",
@@ -31,9 +36,9 @@ const stores = [
   "ТК Владивосток"
 ];
 
-const products: IProductItem[] = [];
+const productsList: IProductItem[] = [];
 for (let i = 1; i < 1001; i++) {
-  products.push({
+  productsList.push({
     pr_sku_id: `Товар ${i}`,
     pr_cat_id: `Категория ${i % 3 + 1}-${i % 3 + 1}`,
     pr_group_id: `Группа ${i % 3 + 1}`,
@@ -43,9 +48,13 @@ for (let i = 1; i < 1001; i++) {
 }
 
 const FilterForm = () => {
-  const [city, setCity] = useState<string[]>([]);
-  const [store, setStore] = useState<string[]>([]);
-  const [days, setDays] = useState<number>(14);
+  const reduxFilter = useAppSelector(state => state.filterFormReducer);
+  const [cities, setCities] = useState<string[]>(reduxFilter.cities);
+  const [stores, setStores] = useState<string[]>(reduxFilter.stores);
+  const [forecastDays, setForecastDays] = useState<number>(reduxFilter.forecastDays);
+  const [products, setProducts] = useState<{ [key: string]: boolean }>(reduxFilter.products);
+  const dispatch = useAppDispatch();
+
   const label = (text: string, pt: number = 0) => (<Typography
     component="h3"
     fontSize={18}
@@ -58,7 +67,22 @@ const FilterForm = () => {
   </Typography>);
 
   const handleSubmit = () => {
-    console.log("Фильтры применились");
+    dispatch(setFormFilter({
+      cities,
+      stores,
+      forecastDays,
+      statisticsPeriod: reduxFilter.statisticsPeriod,
+      products
+    }));
+    console.log("Фильтры сохранились");
+  }
+
+  const handleReset = () => {
+    setCities(initialState.cities);
+    setStores(initialState.stores);
+    setForecastDays(initialState.forecastDays);
+    setProducts(initialState.products);
+    console.log("Фильтры сбросились");
   }
 
   return (
@@ -69,22 +93,34 @@ const FilterForm = () => {
       flexDirection={"column"}
       width={"100%"}
       onSubmit={handleSubmit}
+      onReset={handleReset}
     >
       <Box p={"20px 32px 0 32px"}>
         {label("Город")}
-        <FilterDropDown currentValue={city} label={"Выберите город"} values={cities} setCurrentValue={setCity}/>
+        <FilterDropDown
+          currentValue={cities}
+          label={"Выберите город"}
+          values={citiesList}
+          setCurrentValue={setCities}/>
 
         {label("Торговый комплекс", 7)}
-        <FilterDropDown currentValue={store} label={"Выберите ТК/Группу ТК"} values={stores}
-                        setCurrentValue={setStore}/>
+        <FilterDropDown
+          currentValue={stores}
+          label={"Выберите ТК/Группу ТК"}
+          values={storesList}
+          setCurrentValue={setStores}/>
 
         {label("Количество дней", 7)}
-        <NumberSelect value={days} setValue={setDays}/>
+        <NumberSelect value={forecastDays} setValue={setForecastDays}/>
 
         {label("Товары", 7)}
       </Box>
 
-      <ProductsSelect products={{data: products}}/>
+      <ProductsSelect
+        products={{data: productsList}}
+        selectedProducts={products}
+        setSelectedProducts={setProducts}
+      />
 
       <Box
         display={"flex"}

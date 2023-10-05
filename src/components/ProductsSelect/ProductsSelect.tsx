@@ -7,9 +7,11 @@ import ProductsCheckboxList from "../ProductsCheckboxList/ProductsCheckboxList";
 
 interface IProductsSelectProps {
   products: IProductsResponse,
+  selectedProducts: { [key: string]: boolean },
+  setSelectedProducts: (products: { [key: string]: boolean }) => void
 }
 
-const ProductsSelect = ({products}: IProductsSelectProps) => {
+const ProductsSelect = ({products, selectedProducts, setSelectedProducts}: IProductsSelectProps) => {
   const [filteredData, setFilteredData] = useState<IProductItem[]>(products.data);
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setFilteredData(products.data.filter(item => item.pr_sku_id.includes(e.target.value)));
@@ -22,7 +24,11 @@ const ProductsSelect = ({products}: IProductsSelectProps) => {
         placeholder={"Найти"}
         sx={{height: 44, bgcolor: "white", borderRadius: 2, mx: 8, width: 244}}
       />
-      <ProductsCheckboxList data={filteredData}/>
+      <ProductsCheckboxList
+        data={filteredData}
+        selectedProducts={selectedProducts}
+        setSelectedProducts={setSelectedProducts}
+      />
     </Box>
   );
 };
