@@ -1,17 +1,22 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import signInReducer from "../features/SignInForm/signInFormSlice";
-import {signInAPI} from "../services/SignInService";
+import { getUserAPI } from "../services/GetUserService";
+import { signInAPI } from "../services/SignInService";
 
 const rootReducer = combineReducers({
-    signInReducer,
-    [signInAPI.reducerPath]: signInAPI.reducer
+  signInReducer,
+  [signInAPI.reducerPath]: signInAPI.reducer,
+  [getUserAPI.reducerPath]: getUserAPI.reducer,
 });
 export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer,
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(signInAPI.middleware)
-    });
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(
+        signInAPI.middleware,
+        getUserAPI.middleware
+      ),
+  });
 };
 
 export type RootState = ReturnType<typeof rootReducer>;

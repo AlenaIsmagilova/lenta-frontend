@@ -1,3 +1,4 @@
 export interface ISignInResponse {
-    token: string;
+  access: string;
+  refresh: string;
 }
