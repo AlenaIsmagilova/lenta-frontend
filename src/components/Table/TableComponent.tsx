@@ -148,19 +148,22 @@ const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableCo
         <Table size="small">
           <TableHead
             sx={{
-              backgroundColor: "#003C961A",
-              borderBottom: "2px solid #003C96",
+              backgroundColor: "#003C961A"
             }}
           >
             <TableRow>
-              <TableCell padding="checkbox">
+              <TableCell padding="checkbox" sx={{
+                borderBottom: "2px solid #003C96"
+              }}>
                 <Checkbox
                   checked={checked.every((i) => i)}
                   onChange={handleChangeChecked}
                 />
               </TableCell>
               {
-                tableColumns.map((columnName, index) => (<TableCell key={`c_${index}`}>{columnName}</TableCell>))
+                tableColumns.map((columnName, index) => (<TableCell sx={{
+                  borderBottom: "2px solid #003C96"
+                }} key={`c_${index}`}>{columnName} </TableCell>))
               }
             </TableRow>
           </TableHead>
