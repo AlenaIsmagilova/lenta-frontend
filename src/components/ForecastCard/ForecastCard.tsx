@@ -6,10 +6,11 @@ interface IForecastCardProps {
   growDirection: boolean,
   from: Date,
   to: Date,
-  title: string
+  title: string,
+  cardTitle: string
 }
 
-const ForecastCard = ({growDirection, title, from, to}: IForecastCardProps) => {
+const ForecastCard = ({growDirection, title, from, to, cardTitle}: IForecastCardProps) => {
   const formatDate = (date: Date) => date.toLocaleDateString("ru-RU", {day: "numeric", month: "long"});
   return (
     <Box
@@ -36,7 +37,7 @@ const ForecastCard = ({growDirection, title, from, to}: IForecastCardProps) => {
           lineHeight={"125%"}
           letterSpacing={"0.16px"}
         >
-          {growDirection ? "Ожидается повышение спроса" : "Ожидается понижение спроса"}
+          {cardTitle}
         </Typography>
         <Typography
           component="p"

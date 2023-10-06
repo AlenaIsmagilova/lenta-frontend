@@ -2,7 +2,7 @@ import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import {Box} from "@mui/material";
-import basketIcon from '../../app/images/basket.svg'
+import closeIcon from '../../app/images/close.svg'
 
 interface ChipData {
   key: number;
@@ -28,7 +28,7 @@ export default function ChipsArray() {
   const handleClick = () => console.log('Применить шаблон');
 
   const deleteIcon =
-    (<Box component={"img"} src={basketIcon} width={12} height={12}/>);
+    (<Box component={"img"} src={closeIcon} width={12} height={12}/>);
   return (
     <Box
       display={'flex'}

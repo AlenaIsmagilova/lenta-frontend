@@ -2,7 +2,7 @@ import {Box} from "@mui/material";
 import Templates from "../Templates/Templates";
 import ForecastCard from "../ForecastCard/ForecastCard";
 
-const ForecastTemplateRow = () => {
+const StatisticTemplateRow = () => {
   const from = new Date();
   const to = new Date();
 
@@ -15,21 +15,21 @@ const ForecastTemplateRow = () => {
     >
       <Templates/>
       <ForecastCard
-        title={"Морсы"}
+        title={"Салат крабовый"}
         from={from}
         to={to}
         growDirection={true}
-        cardTitle={"Ожидается повышение спроса"}
+        cardTitle={"Лидер роста продаж"}
       />
-
       <ForecastCard
-        title={"Булка с маком"}
+        title={"Вишневый штрудель"}
         from={from}
         to={to}
         growDirection={false}
-        cardTitle={"Ожидается понижение спроса"}/>
+        cardTitle={"Падение продаж"}
+      />
     </Box>
   );
 };
 
-export default ForecastTemplateRow;
+export default StatisticTemplateRow;

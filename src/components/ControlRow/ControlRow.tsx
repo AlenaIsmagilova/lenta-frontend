@@ -3,7 +3,7 @@ import printIcon from "../../app/images/printer.svg";
 import excelIcon from "../../app/images/excel.svg";
 import plusIcon from "../../app/images/plus.svg";
 
-const ForecastControlRow = () => {
+const ControlRow = () => {
   return (
     <Box
       display={"flex"}
@@ -50,4 +50,4 @@ const ForecastControlRow = () => {
   );
 };
 
-export default ForecastControlRow;
+export default ControlRow;
