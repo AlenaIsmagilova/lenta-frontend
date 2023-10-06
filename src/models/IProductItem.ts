@@ -6,7 +6,6 @@ export interface IProductItem {
   pr_uom_id: number;
 }
 
-
 export interface IProductsResponse {
   data: IProductItem[];
 }
@@ -15,5 +14,3 @@ export interface IProductsResponse {
 export interface IForecastOfProducts extends IProductItem {
   pr_forecast: number;
 }
-
->>>>>>> master:src/models/IProductItem.ts
