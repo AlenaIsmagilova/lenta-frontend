@@ -21,10 +21,10 @@ interface ITableComponentProps {
 
 const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableComponentProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(true);
-  const [checked, setChecked] = useState<boolean[]>([]);
+  const [checked, setChecked] = useState<boolean[]>(tableRows.map(() => false));
 
   useEffect(() => {
-    setChecked(new Array(tableRows.length).fill(false));
+    setChecked(tableRows.map(() => false));
   }, [tableRows]);
 
   const sumOfProduct = useMemo(() => tableRows.length, [tableRows]);
@@ -149,7 +149,7 @@ const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableCo
           <TableHead
             sx={{
               backgroundColor: "#003C961A",
-              borderBottom: "2px solid primary.main",
+              borderBottom: "2px solid #003C96",
             }}
           >
             <TableRow>

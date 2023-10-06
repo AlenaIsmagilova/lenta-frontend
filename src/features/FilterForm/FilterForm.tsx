@@ -14,6 +14,16 @@ import {
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {useGetShopsQuery} from "../../services/ShopService";
 import {useGetCategoriesQuery} from "../../services/CategoriesService";
+import {useLocation} from "react-router-dom";
+
+const statisticPeriods = [
+  {name: "День", value: 1},
+  {name: "Неделя", value: 7},
+  {name: "Месяц", value: 30}
+];
+const statisticPeriodNames = statisticPeriods.map(p => p.name);
+const getStatisticNameByValue = (n: number): string => statisticPeriods.find(({value}) => value === n)?.name || '';
+const getStatisticValueByName = (n: string): number => statisticPeriods.find(({name}) => name === n)?.value || 1;
 
 const FilterForm = () => {
   const reduxFilter = useAppSelector(state => state.filterFormReducer);
@@ -21,7 +31,8 @@ const FilterForm = () => {
   const [stores, setStores] = useState<string[]>(reduxFilter.stores);
   const [forecastDays, setForecastDays] = useState<number>(reduxFilter.forecastDays);
   const [products, setProducts] = useState<{ [key: string]: boolean }>(reduxFilter.products);
-
+  const [statisticsPeriod, setStatisticsPeriod] = useState<string>(getStatisticNameByValue(reduxFilter.statisticsPeriod));
+  const {pathname} = useLocation();
   const dispatch = useAppDispatch();
 
   const {data: shopList} = useGetShopsQuery('');
@@ -46,7 +57,7 @@ const FilterForm = () => {
       cities,
       stores,
       forecastDays,
-      statisticsPeriod: reduxFilter.statisticsPeriod,
+      statisticsPeriod: getStatisticValueByName(statisticsPeriod),
       products
     }));
     console.log("Фильтры сохранились");
@@ -57,9 +68,10 @@ const FilterForm = () => {
     setStores(initialState.stores);
     setForecastDays(initialState.forecastDays);
     setProducts(initialState.products);
+    setStatisticsPeriod(getStatisticNameByValue(initialState.statisticsPeriod));
     console.log("Фильтры сбросились");
   }
-
+  
   return (
     <Box
       component="form"
@@ -85,8 +97,27 @@ const FilterForm = () => {
           values={storesList}
           setCurrentValue={setStores}/>
 
-        {label("Количество дней", 7)}
-        <NumberSelect value={forecastDays} setValue={setForecastDays}/>
+        {pathname === '/' && (
+          <>
+            {label("Количество дней", 7)}
+            <NumberSelect value={forecastDays} setValue={setForecastDays}/>
+          </>
+        )
+        }
+        {
+          pathname !== '/' && (
+            <>
+              {label("Данные за период", 7)}
+              <FilterDropDown
+                multiple={false}
+                currentValue={statisticsPeriod}
+                label={""}
+                values={statisticPeriodNames}
+                setCurrentValue={setStatisticsPeriod}
+              />
+            </>
+          )
+        }
 
         {label("Товары", 7)}
       </Box>

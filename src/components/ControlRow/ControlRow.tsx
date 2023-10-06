@@ -8,7 +8,6 @@ const ControlRow = () => {
     window.print();
   }
 
-  
   return (
     <Box
       display={"flex"}
@@ -39,7 +38,8 @@ const ControlRow = () => {
         <Button
           size={"large"}
           variant={"outlined"}
-          startIcon={<Box component={"img"} src={printIcon} onClick={handleClick} ml={3}/>}
+          onClick={handleClick}
+          startIcon={<Box component={"img"} src={printIcon} ml={3}/>}
           sx={{width: 72, height: 52, borderRadius: 2}}
         />
         <Button

@@ -13,10 +13,11 @@ import DropDownArrow from "../../app/images/down.svg";
 import {memo} from "react";
 
 interface IFilterDropDown {
-  currentValue: string[],
+  currentValue: string | string[],
   label: string,
   values: string[],
-  setCurrentValue: Function
+  setCurrentValue: Function,
+  multiple?: boolean
 }
 
 const ITEM_HEIGHT = 48;
@@ -30,7 +31,7 @@ const MenuProps = {
   },
 };
 
-function getStyles(item: string, currentValue: readonly string[], theme: Theme) {
+function getStyles(item: string, currentValue: readonly string[] | string, theme: Theme) {
   return {
     fontWeight:
       currentValue.indexOf(item) === -1
@@ -39,7 +40,7 @@ function getStyles(item: string, currentValue: readonly string[], theme: Theme) 
   };
 }
 
-const FilterDropDown = memo(({currentValue, setCurrentValue, values, label}: IFilterDropDown) => {
+const FilterDropDown = memo(({currentValue, setCurrentValue, values, label, multiple = true}: IFilterDropDown) => {
   const theme = useTheme();
 
   const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
@@ -54,7 +55,7 @@ const FilterDropDown = memo(({currentValue, setCurrentValue, values, label}: IFi
   return (
     <FormControl fullWidth={true} sx={{mt: 2}}>
       <Select
-        multiple
+        multiple={multiple}
         displayEmpty
         value={currentValue}
         onChange={handleChange}
@@ -80,7 +81,7 @@ const FilterDropDown = memo(({currentValue, setCurrentValue, values, label}: IFi
             return label
           }
 
-          return selected.join(', ');
+          return Array.isArray(selected) ? selected.join(', ') : selected;
         }}
         MenuProps={MenuProps}
         inputProps={{'aria-label': 'Without label'}}

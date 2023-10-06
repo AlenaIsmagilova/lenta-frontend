@@ -6,8 +6,8 @@ const StatisticTemplateRow = () => {
   const from = new Date();
   const to = new Date();
 
-  from.setDate(from.getDate() + 1);
-  to.setDate(to.getDate() + 15);
+  from.setDate(from.getDate() - 8);
+  to.setDate(to.getDate() - 1);
   return (
     <Box
       display={"flex"}
