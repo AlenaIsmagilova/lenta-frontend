@@ -9,112 +9,25 @@ import {
   Checkbox,
   Box,
 } from "@mui/material";
-import moment from "moment";
-import { useEffect, useState } from "react";
+import {useEffect, useMemo, useState} from "react";
 import Alert from "../Alert/Alert";
 import styles from "./TableComponent.module.css";
 
-const rows = [
-  {
-    tk: "Лента Химкиттттттттттттттттттттттттттттттттттттттттттттттттттт",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-  {
-    tk: "Лента Химки",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-  {
-    tk: "Лента Химки",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-  {
-    tk: "Лента Химки",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-  {
-    tk: "Лента Химки",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-  {
-    tk: "Лента Химки",
-    group: "Кулинария",
-    category: "Закуски и салаты",
-    subcat: "Порционные салаты",
-    product: "Лента фреш с лососем",
-    id: 4,
-  },
-];
+interface ITableComponentProps {
+  tableColumns: string[],
+  tableRows: string[][],
+  staticColumnsNumber: number
+}
 
-const hardForecast = [1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
-const clearHardForecast = [
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-];
-
-const TableComponent = () => {
-  const [dates, setDates] = useState<Array<string>>([]);
-  const [countOfAllProducts, setCountOfAllProducts] = useState<number>(0);
+const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableComponentProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(true);
-  const [checked, setChecked] = useState<boolean[]>(
-    new Array(rows.length).fill(false)
-  );
+  const [checked, setChecked] = useState<boolean[]>([]);
 
-  const clearArray = new Array(15).fill({
-    tk: "",
-    group: "",
-    category: "",
-    subcat: " ",
-    product: "  ",
-    id: null,
-  });
+  useEffect(() => {
+    setChecked(new Array(tableRows.length).fill(false));
+  }, [tableRows]);
 
-  const createArrayOfDates = () => {
-    let prev = moment();
-    let arrOfDates = [];
-
-    for (let i = 1; i <= 14; i++) {
-      arrOfDates.push(prev.format("DD.MM"));
-      prev = prev.add(1, "days");
-    }
-
-    return arrOfDates;
-  };
-
-  const sumOfProduct = () => {
-    return rows.length;
-  };
+  const sumOfProduct = useMemo(() => tableRows.length, [tableRows]);
 
   const handleChangeChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(
@@ -134,11 +47,6 @@ const TableComponent = () => {
       })
     );
   }
-
-  useEffect(() => {
-    setDates(createArrayOfDates());
-    setCountOfAllProducts(sumOfProduct());
-  }, []);
 
   const deleteClick = () => {
     setChecked(new Array(checked.length).fill(false));
@@ -235,12 +143,12 @@ const TableComponent = () => {
           sumChecked={checked.includes(true) ? true : false}
         />
       )} */}
-      <p className={styles.productSum}>Всего позиции: {countOfAllProducts}</p>
-      <TableContainer component={Paper} sx={{ width: "1556px" }}>
+      <p className={styles.productSum}>Всего позиций: {sumOfProduct}</p>
+      <TableContainer component={Paper} sx={{width: "1556px"}}>
         <Table size="small">
           <TableHead
             sx={{
-              backgroundColor: "primary.light",
+              backgroundColor: "#003C961A",
               borderBottom: "2px solid primary.main",
             }}
           >
@@ -251,14 +159,9 @@ const TableComponent = () => {
                   onChange={handleChangeChecked}
                 />
               </TableCell>
-              <TableCell>TK</TableCell>
-              <TableCell>Группа</TableCell>
-              <TableCell>Категория</TableCell>
-              <TableCell>Подкатегория</TableCell>
-              <TableCell>Товар</TableCell>
-              {dates.map((date, i) => (
-                <TableCell key={i}>{date}</TableCell>
-              ))}
+              {
+                tableColumns.map((columnName, index) => (<TableCell key={`c_${index}`}>{columnName}</TableCell>))
+              }
             </TableRow>
           </TableHead>
           <TableBody
@@ -277,15 +180,14 @@ const TableComponent = () => {
               },
             }}
           >
-            {clearArray.map((row, i) => (
+            {tableRows.map((row, i) => (
               <TableRow
                 component="tr"
-                // scope="row"
                 key={i}
                 sx={{
                   backgroundColor:
                     i % 2 === 0 ? "background.paper" : "background.default",
-                  heigth: "36px",
+                  height: "36px",
                 }}
               >
                 <TableCell padding="checkbox" component="td">
@@ -294,26 +196,13 @@ const TableComponent = () => {
                     onChange={(e) => handleSmallCheckbox(e, i)}
                   />
                 </TableCell>
-                <TableCell component="td">
-                  <Box>{row.tk}</Box>
-                </TableCell>
-                <TableCell component="td">
-                  <Box>{row.group}</Box>
-                </TableCell>
-                <TableCell component="td">
-                  <Box>{row.category}</Box>
-                </TableCell>
-                <TableCell component="td">
-                  <Box>{row.subcat}</Box>
-                </TableCell>
-                <TableCell component="td">
-                  <Box>{row.product}</Box>
-                </TableCell>
-                {clearHardForecast.map((el, i) => (
-                  <TableCell key={i} component="td">
-                    {el}
-                  </TableCell>
-                ))}
+                {
+                  row.map((value, j) => (
+                    <TableCell component="td" key={`cell_${i}_${j}`}>
+                      {j < staticColumnsNumber ? (<Box>{value}</Box>) : value}
+                    </TableCell>
+                  ))
+                }
               </TableRow>
             ))}
           </TableBody>
@@ -325,7 +214,7 @@ const TableComponent = () => {
           extClassName={styles.footer}
           countOfCheckedElement={checked.filter((el) => el).length}
           deleteClick={deleteClick}
-          sumChecked={checked.includes(true) ? true : false}
+          sumChecked={checked.includes(true)}
         />
       )}
     </>

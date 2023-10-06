@@ -1,7 +1,7 @@
 import {
   Box, Button, Typography
 } from "@mui/material";
-import {useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 
 import FilterDropDown from "../../components/FilterDropDown/FilterDropDown";
 import NumberSelect from "../../components/NumberSelect/NumberSelect";
@@ -40,7 +40,8 @@ const FilterForm = () => {
     {text}
   </Typography>);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(setFormFilter({
       cities,
       stores,
@@ -100,7 +101,7 @@ const FilterForm = () => {
         display={"flex"}
         justifyContent={"space-between"}
         padding={"12px 16px 32px 32px"}>
-        <Button variant={"contained"} sx={{width: 109, borderRadius: 2}} type={"button"}>Применить</Button>
+        <Button variant={"contained"} sx={{width: 109, borderRadius: 2}} type={"submit"}>Применить</Button>
         <Button
           type={"reset"}
           sx={{
