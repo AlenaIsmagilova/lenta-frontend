@@ -32,7 +32,6 @@ a {
 .linksList {
   display: flex;
   align-items: flex-end;
-  max-width: 520px;
   max-height: 82px;
   list-style-type: none;
   margin: 0;

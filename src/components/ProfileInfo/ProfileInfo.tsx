@@ -6,18 +6,35 @@ import phone from "../../app/images/phone.svg";
 import settings from "../../app/images/settings.svg";
 import logout from "../../app/images/logout.svg";
 import styles from "./ProfileInfo.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetUserQuery } from "../../services/GetUserService";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "../../features/UserInfo/UserInfo";
+import { useNavigate } from "react-router-dom";
 
 const ProfileInfo = () => {
   const [isDropDownMenuOpened, setIsDropDownMenuOpened] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { data } = useGetUserQuery("");
+  console.log(data, " this is user info");
   const date = new Date().toLocaleDateString("ru", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 
+  useEffect(() => {
+    dispatch(getUserInfo(data));
+  }, []);
+
   const onClick = () => {
     setIsDropDownMenuOpened(!isDropDownMenuOpened);
+  };
+
+  const clickExitHandler = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/signin");
   };
 
   return (
@@ -61,7 +78,10 @@ const ProfileInfo = () => {
             />
             <p className={styles.text}>Настройки</p>
           </div>
-          <div className={styles.dropDownMenuInfoWrapper}>
+          <div
+            className={styles.dropDownMenuInfoWrapper}
+            onClick={clickExitHandler}
+          >
             <img
               className={styles.dropDownMenuImage}
               src={logout}

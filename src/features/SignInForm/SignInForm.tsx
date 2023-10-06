@@ -8,32 +8,35 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import {useSignInMutation} from "../../services/SignInService";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import { useSignInMutation } from "../../services/SignInService";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useNavigate } from "react-router-dom";
 import {
   setUsernameError,
   setPasswordError,
-  setShowPassword
+  setShowPassword,
 } from "./signInFormSlice";
+import { setCredentials } from "../Auth/AuthSlice";
 
 const SignInForm = () => {
-  const [signIn, {/*data,*/ isError, reset}] = useSignInMutation();
+  const [signIn, { /*data,*/ isError, reset }] = useSignInMutation();
   const {
     showPassword,
     passwordError,
     usernameError,
     isUsernameError,
-    isPasswordError
-  } = useAppSelector(state => state.signInReducer);
+    isPasswordError,
+  } = useAppSelector((state) => state.signInReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.nativeEvent.target as HTMLFormElement);
-    const username = formData.get('username')?.toString();
-    const password = formData.get('password')?.toString();
+    const username = formData.get("username")?.toString();
+    const password = formData.get("password")?.toString();
 
     if (!username || !password) {
       dispatch(setUsernameError(username ? "" : "Введите логин"));
@@ -41,11 +44,22 @@ const SignInForm = () => {
       reset();
       return;
     }
-    await signIn({username, password});
-    // TODO: сохранить токен от бекенда
+
+    try {
+      const res = await signIn({ username, password });
+
+      if ("data" in res) {
+        await dispatch(setCredentials(res.data.access));
+        localStorage.setItem("accessToken", res.data.access);
+        navigate("/");
+      }
+    } catch (err) {
+      console.log("this is err in SignIn:", err);
+    }
   };
 
-  const handleClickShowPassword = () => dispatch(setShowPassword(!showPassword));
+  const handleClickShowPassword = () =>
+    dispatch(setShowPassword(!showPassword));
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -54,7 +68,13 @@ const SignInForm = () => {
   };
 
   return (
-    <Box component="section" width={616} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+    <Box
+      component="section"
+      width={616}
+      display={"flex"}
+      flexDirection={"column"}
+      alignItems={"center"}
+    >
       <Typography
         component="h1"
         variant="h4"
@@ -64,7 +84,7 @@ const SignInForm = () => {
         lineHeight={"130%"}
         letterSpacing={"0.34px"}
       >
-        Авторизуйтесь для входа <br/> в Лента.Спрос
+        Авторизуйтесь для входа <br /> в Лента.Спрос
       </Typography>
       <Box
         display={"flex"}
@@ -74,7 +94,7 @@ const SignInForm = () => {
         marginTop={5}
         borderRadius={4}
         sx={{
-          boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);"
+          boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);",
         }}
       >
         <Box
@@ -95,7 +115,9 @@ const SignInForm = () => {
             label="Логин"
             name="username"
             autoComplete="username"
-            helperText={isError ? "Логин или пароль введены не верно" : usernameError}
+            helperText={
+              isError ? "Логин или пароль введены не верно" : usernameError
+            }
             autoFocus
             InputProps={{
               sx: {
@@ -105,7 +127,7 @@ const SignInForm = () => {
           />
 
           <TextField
-            sx={{mt: 6}}
+            sx={{ mt: 6 }}
             error={isPasswordError || isError}
             required
             fullWidth
@@ -120,7 +142,7 @@ const SignInForm = () => {
               sx: {
                 borderRadius: 2,
               },
-              endAdornment:
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -128,9 +150,10 @@ const SignInForm = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {showPassword ? <VisibilityOff/> : <Visibility/>}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
+              ),
             }}
           />
 
@@ -139,7 +162,7 @@ const SignInForm = () => {
             type="submit"
             variant="contained"
             size={"large"}
-            sx={{mt: 8, mb: 5, width: 160, height: 52, borderRadius: 2}}
+            sx={{ mt: 8, mb: 5, width: 160, height: 52, borderRadius: 2 }}
           >
             Войти
           </Button>
@@ -147,7 +170,7 @@ const SignInForm = () => {
           <Link
             href="#"
             variant="body2"
-            sx={{width: "100%"}}
+            sx={{ width: "100%" }}
             textAlign={"center"}
           >
             Забыли пароль?

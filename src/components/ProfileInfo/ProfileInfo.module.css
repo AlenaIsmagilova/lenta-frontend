@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: 560px;
 }
 
 .infoWrapper {
   display: flex;
   align-items: center;
+  margin-right: 44px;
 }
 
 .image {
@@ -61,6 +61,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 26px;
+  cursor: pointer;
 }
 
 .dropDownMenuInfoWrapper:last-of-type {

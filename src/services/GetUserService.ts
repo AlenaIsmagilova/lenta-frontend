@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ISignInRequest } from "../models/ISignInRequest";
-import { ISignInResponse } from "../models/ISignInResponse";
 
-export const signInAPI = createApi({
-  reducerPath: "signInAPI",
+export const getUserAPI = createApi({
+  reducerPath: "getUserAPI",
   baseQuery: fetchBaseQuery({
     // TODO: считывать из .env  файла
     baseUrl: "http://localhost:8000",
@@ -17,14 +15,13 @@ export const signInAPI = createApi({
     },
   }),
   endpoints: (build) => ({
-    signIn: build.mutation<ISignInResponse, ISignInRequest>({
-      query: (body) => ({
-        url: "api/v1/login",
-        method: "POST",
-        body,
+    getUser: build.query({
+      query: () => ({
+        url: "api/v1/info-header/",
+        method: "GET",
       }),
     }),
   }),
 });
 
-export const { useSignInMutation } = signInAPI;
+export const { useGetUserQuery } = getUserAPI;
