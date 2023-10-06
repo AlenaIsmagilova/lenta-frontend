@@ -1,6 +1,6 @@
 import {Logo} from "../../ui/logo/logo";
 import {Box} from "@mui/material";
-import FilterForm from "../FilterForm/FilterForm";
+import FilterForm from "../../features/FilterForm/FilterForm";
 
 const Sidebar = () => {
   return (
