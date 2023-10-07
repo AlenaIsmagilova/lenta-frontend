@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import FilterDropDown from "../../components/FilterDropDown/FilterDropDown";
 import NumberSelect from "../../components/NumberSelect/NumberSelect";
@@ -10,18 +10,25 @@ import { setFormFilter, initialState } from "./filterFormSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useGetShopsQuery } from "../../services/ShopService";
 import { useGetCategoriesQuery } from "../../services/CategoriesService";
+import {useLocation} from "react-router-dom";
+
+const statisticPeriods = [
+  {name: "День", value: 1},
+  {name: "Неделя", value: 7},
+  {name: "Месяц", value: 30}
+];
+const statisticPeriodNames = statisticPeriods.map(p => p.name);
+const getStatisticNameByValue = (n: number): string => statisticPeriods.find(({value}) => value === n)?.name || '';
+const getStatisticValueByName = (n: string): number => statisticPeriods.find(({name}) => name === n)?.value || 1;
 
 const FilterForm = () => {
   const reduxFilter = useAppSelector((state) => state.filterFormReducer);
   const [cities, setCities] = useState<string[]>(reduxFilter.cities);
   const [stores, setStores] = useState<string[]>(reduxFilter.stores);
-  const [forecastDays, setForecastDays] = useState<number>(
-    reduxFilter.forecastDays
-  );
-  const [products, setProducts] = useState<{ [key: string]: boolean }>(
-    reduxFilter.products
-  );
-
+  const [forecastDays, setForecastDays] = useState<number>(reduxFilter.forecastDays);
+  const [products, setProducts] = useState<{ [key: string]: boolean }>(reduxFilter.products);
+  const [statisticsPeriod, setStatisticsPeriod] = useState<string>(getStatisticNameByValue(reduxFilter.statisticsPeriod));
+  const {pathname} = useLocation();
   const dispatch = useAppDispatch();
 
   const { data: shopList } = useGetShopsQuery("");
@@ -51,13 +58,14 @@ const FilterForm = () => {
     </Typography>
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(
       setFormFilter({
         cities,
         stores,
         forecastDays,
-        statisticsPeriod: reduxFilter.statisticsPeriod,
+        statisticsPeriod: getStatisticValueByName(statisticsPeriod),
         products,
       })
     );
@@ -69,6 +77,7 @@ const FilterForm = () => {
     setStores(initialState.stores);
     setForecastDays(initialState.forecastDays);
     setProducts(initialState.products);
+    setStatisticsPeriod(getStatisticNameByValue(initialState.statisticsPeriod));
     console.log("Фильтры сбросились");
   };
 
@@ -99,8 +108,27 @@ const FilterForm = () => {
           setCurrentValue={setStores}
         />
 
-        {label("Количество дней", 7)}
-        <NumberSelect value={forecastDays} setValue={setForecastDays} />
+        {pathname === '/' && (
+          <>
+            {label("Количество дней", 7)}
+            <NumberSelect value={forecastDays} setValue={setForecastDays} />
+          </>
+        )
+        }
+        {
+          pathname !== '/' && (
+            <>
+              {label("Данные за период", 7)}
+              <FilterDropDown
+                multiple={false}
+                currentValue={statisticsPeriod}
+                label={""}
+                values={statisticPeriodNames}
+                setCurrentValue={setStatisticsPeriod}
+              />
+            </>
+          )
+        }
 
         {label("Товары", 7)}
       </Box>
@@ -119,7 +147,7 @@ const FilterForm = () => {
         <Button
           variant={"contained"}
           sx={{ width: 109, borderRadius: 2 }}
-          type={"button"}
+          type={"submit"}
         >
           Применить
         </Button>

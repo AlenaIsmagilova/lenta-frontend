@@ -3,7 +3,11 @@ import printIcon from "../../app/images/printer.svg";
 import excelIcon from "../../app/images/excel.svg";
 import plusIcon from "../../app/images/plus.svg";
 
-const ForecastControlRow = () => {
+const ControlRow = () => {
+  const handleClick = () => {
+    window.print();
+  }
+
   return (
     <Box
       display={"flex"}
@@ -34,6 +38,7 @@ const ForecastControlRow = () => {
         <Button
           size={"large"}
           variant={"outlined"}
+          onClick={handleClick}
           startIcon={<Box component={"img"} src={printIcon} ml={3}/>}
           sx={{width: 72, height: 52, borderRadius: 2}}
         />
@@ -50,4 +55,4 @@ const ForecastControlRow = () => {
   );
 };
 
-export default ForecastControlRow;
+export default ControlRow;
