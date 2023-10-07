@@ -17,12 +17,6 @@ const ProfileInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetUserQuery("");
-  console.log(data, " this is user info");
-  const date = new Date().toLocaleDateString("ru", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 
   useEffect(() => {
     dispatch(getUserInfo(data));
@@ -41,16 +35,18 @@ const ProfileInfo = () => {
     <div className={styles.container}>
       <div className={styles.infoWrapper}>
         <img className={styles.image} src={calendar} alt="календарь" />
-        <p className={styles.text}>{date}</p>
+        <p className={styles.text}>{data.current_date}</p>
       </div>
       <div className={styles.infoWrapper}>
         <img className={styles.image} src={store} alt="магазин" />
-        <p className={styles.text}>ID сотрудника</p>
+        <p className={styles.text}>{data.store_ids}</p>
       </div>
       <button className={styles.button} type="button" onClick={onClick}>
         <div className={styles.infoWrapper}>
           <img className={styles.image} src={user} alt="личный кабинет" />
-          <p className={styles.text}>ФИО</p>
+          <p
+            className={styles.text}
+          >{`${data.first_name} ${data.last_name}`}</p>
           <img
             className={
               isDropDownMenuOpened ? styles.turnedImage : styles.arrowImage

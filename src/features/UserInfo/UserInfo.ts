@@ -18,16 +18,14 @@ const userInfo = createSlice({
   name: "userInfo",
   initialState,
   reducers: {
-    //ПОПРАВИТЬ ТИПИЗАЦИЮ
-    getUserInfo: (state, payload: any) => {
-      state.current_date = payload.current_date;
-      state.first_name = payload.first_name;
-      state.last_name = payload.last_name;
-      state.store_ids = payload.store_ids;
+    getUserInfo: (state, action: PayloadAction<IUserInfo>) => {
+      state.current_date = action.payload.current_date;
+      state.first_name = action.payload.first_name;
+      state.last_name = action.payload.last_name;
+      state.store_ids = action.payload.store_ids;
     },
   },
 });
 
-//заменить типизацию позже, пока нет времени
-export const { getUserInfo }: any = userInfo.actions;
+export const { getUserInfo } = userInfo.actions;
 export default userInfo.reducer;
