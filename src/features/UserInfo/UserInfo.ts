@@ -27,6 +27,5 @@ const userInfo = createSlice({
   },
 });
 
-//заменить типизацию позже, пока нет времени
-export const { getUserInfo }: any = userInfo.actions;
+export const { getUserInfo } = userInfo.actions;
 export default userInfo.reducer;
