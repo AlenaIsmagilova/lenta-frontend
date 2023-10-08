@@ -7,17 +7,17 @@ import {
   Select,
   SelectChangeEvent,
   Theme,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import DropDownArrow from "../../app/images/down.svg";
-import {memo} from "react";
+import { memo, useState } from "react";
 
 interface IFilterDropDown {
-  currentValue: string | string[],
-  label: string,
-  values: string[],
-  setCurrentValue: Function,
-  multiple?: boolean
+  currentValue: string | string[];
+  label: string;
+  values: string[];
+  setCurrentValue: Function;
+  multiple?: boolean;
 }
 
 const ITEM_HEIGHT = 48;
@@ -31,7 +31,11 @@ const MenuProps = {
   },
 };
 
-function getStyles(item: string, currentValue: readonly string[] | string, theme: Theme) {
+function getStyles(
+  item: string,
+  currentValue: readonly string[] | string,
+  theme: Theme
+) {
   return {
     fontWeight:
       currentValue.indexOf(item) === -1
@@ -40,52 +44,67 @@ function getStyles(item: string, currentValue: readonly string[] | string, theme
   };
 }
 
-const FilterDropDown = memo(({currentValue, setCurrentValue, values, label, multiple = true}: IFilterDropDown) => {
+const FilterDropDown = ({
+  currentValue,
+  setCurrentValue,
+  values,
+  label,
+  multiple = true,
+}: IFilterDropDown) => {
   const theme = useTheme();
+
+  const [selectedValue, setSelectedValue] = useState<string[] | string>([]);
+
+  // const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setCurrentValue(typeof value === "string" ? value.split(",") : value);
+  // };
 
   const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
     const {
-      target: {value},
+      target: { value },
     } = event;
-    setCurrentValue(
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setSelectedValue(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
-    <FormControl fullWidth={true} sx={{mt: 2}}>
+    <FormControl fullWidth={true} sx={{ mt: 2 }}>
       <Select
         multiple={multiple}
         displayEmpty
         value={currentValue}
         onChange={handleChange}
-        input={<OutlinedInput/>}
+        input={<OutlinedInput />}
         IconComponent={(props) => (
-          <Button {...props}
-                  sx={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: "0px 8px 8px 0px",
-                    mt: "-15px",
-                    mr: "-6px",
-                    p: "10px",
-                    minWidth: "unset",
-                    borderLeft: '1px solid #D5D5D6',
-                    backgroundColor: "background.paper"
-                  }}>
-            <Box component={"img"} src={DropDownArrow}/>
+          <Button
+            {...props}
+            sx={{
+              width: 44,
+              height: 44,
+              borderRadius: "0px 8px 8px 0px",
+              mt: "-15px",
+              mr: "-6px",
+              p: "10px",
+              minWidth: "unset",
+              borderLeft: "1px solid #D5D5D6",
+              backgroundColor: "background.paper",
+            }}
+          >
+            <Box component={"img"} src={DropDownArrow} />
           </Button>
         )}
         renderValue={(selected) => {
           if (selected.length === 0) {
-            return label
+            return label;
           }
 
-          return Array.isArray(selected) ? selected.join(', ') : selected;
+          return Array.isArray(selected) ? selected.join(", ") : selected;
         }}
         MenuProps={MenuProps}
-        inputProps={{'aria-label': 'Without label'}}
-        sx={{height: '44px', borderRadius: 2, bgcolor: "white"}}
+        inputProps={{ "aria-label": "Without label" }}
+        sx={{ height: "44px", borderRadius: 2, bgcolor: "white" }}
       >
         <MenuItem disabled value="">
           {label}
@@ -102,6 +121,6 @@ const FilterDropDown = memo(({currentValue, setCurrentValue, values, label, mult
       </Select>
     </FormControl>
   );
-});
+};
 
 export default FilterDropDown;

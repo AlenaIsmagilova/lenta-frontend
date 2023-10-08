@@ -1,0 +1,32 @@
+.closed {
+  height: 20px;
+  overflow-y: hidden;
+}
+
+.opened {
+  height: auto;
+  overflow-y: auto;
+}
+
+.listTitle {
+  height: 20px;
+  display: block;
+}
+
+.box {
+  /* min-height: 30px; */
+}
+
+.catTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+}
+
+.dippest {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+}

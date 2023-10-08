@@ -26,3 +26,13 @@ body {
   margin: 0;
   font-family: "Gilroy", "Arial", "sans-serif";
 }
+
+.closed {
+  height: 20px;
+  overflow-y: hidden;
+}
+
+.opened {
+  height: auto;
+  overflow-y: auto;
+}

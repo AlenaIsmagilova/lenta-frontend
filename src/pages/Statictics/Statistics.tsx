@@ -15,14 +15,18 @@ const Statistics = () => {
     "Прогноз (кол-во)",
     `Разница факт/прогноз (ед. изм.)`,
     "Разница факт/прогноз (руб)",
-    "Кач-во прогноза"
+    "Кач-во прогноза",
   ];
-  const rows = new Array(15).fill("").map(() => new Array(staticColumnNames.length).fill(""));
+  // const rows = new Array(15).fill("").map(() => new Array(staticColumnNames.length).fill(""));
   return (
     <Layout>
-      <StatisticTemplateRow/>
-      <ControlRow/>
-      <TableComponent tableRows={rows} tableColumns={staticColumnNames} staticColumnsNumber={10}/>
+      <StatisticTemplateRow />
+      <ControlRow />
+      <TableComponent
+        tableRows={[]}
+        tableColumns={staticColumnNames}
+        staticColumnsNumber={10}
+      />
     </Layout>
   );
 };

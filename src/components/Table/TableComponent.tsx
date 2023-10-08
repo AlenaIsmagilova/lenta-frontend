@@ -9,19 +9,27 @@ import {
   Checkbox,
   Box,
 } from "@mui/material";
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useAppSelector } from "../../hooks/redux";
 import Alert from "../Alert/Alert";
 import styles from "./TableComponent.module.css";
 
 interface ITableComponentProps {
-  tableColumns: string[],
-  tableRows: string[][],
-  staticColumnsNumber: number
+  tableColumns: string[];
+  tableRows: string[][];
+  staticColumnsNumber: number;
 }
 
-const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableComponentProps) => {
+const TableComponent = ({
+  tableColumns,
+  tableRows,
+  staticColumnsNumber,
+}: ITableComponentProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(true);
   const [checked, setChecked] = useState<boolean[]>(tableRows.map(() => false));
+  const filteredProducts = useAppSelector(
+    (state) => state.filterFormReducer.filteredProducts
+  );
 
   useEffect(() => {
     setChecked(tableRows.map(() => false));
@@ -144,27 +152,35 @@ const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableCo
         />
       )} */}
       <p className={styles.productSum}>Всего позиций: {sumOfProduct}</p>
-      <TableContainer component={Paper} sx={{width: "1556px"}}>
+      <TableContainer component={Paper} sx={{ width: "1556px" }}>
         <Table size="small">
           <TableHead
             sx={{
-              backgroundColor: "#003C961A"
+              backgroundColor: "#003C961A",
             }}
           >
             <TableRow>
-              <TableCell padding="checkbox" sx={{
-                borderBottom: "2px solid #003C96"
-              }}>
+              <TableCell
+                padding="checkbox"
+                sx={{
+                  borderBottom: "2px solid #003C96",
+                }}
+              >
                 <Checkbox
                   checked={checked.every((i) => i)}
                   onChange={handleChangeChecked}
                 />
               </TableCell>
-              {
-                tableColumns.map((columnName, index) => (<TableCell sx={{
-                  borderBottom: "2px solid #003C96"
-                }} key={`c_${index}`}>{columnName} </TableCell>))
-              }
+              {tableColumns.map((columnName, index) => (
+                <TableCell
+                  sx={{
+                    borderBottom: "2px solid #003C96",
+                  }}
+                  key={`c_${index}`}
+                >
+                  {columnName}{" "}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody
@@ -183,7 +199,7 @@ const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableCo
               },
             }}
           >
-            {tableRows.map((row, i) => (
+            {filteredProducts.map((row, i) => (
               <TableRow
                 component="tr"
                 key={i}
@@ -199,13 +215,13 @@ const TableComponent = ({tableColumns, tableRows, staticColumnsNumber}: ITableCo
                     onChange={(e) => handleSmallCheckbox(e, i)}
                   />
                 </TableCell>
-                {
+                {/* {
                   row.map((value, j) => (
                     <TableCell component="td" key={`cell_${i}_${j}`}>
                       {j < staticColumnsNumber ? (<Box>{value}</Box>) : value}
                     </TableCell>
                   ))
-                }
+                } */}
               </TableRow>
             ))}
           </TableBody>
