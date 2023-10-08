@@ -24,31 +24,24 @@ const getStatisticValueByName = (n: string): number =>
   statisticPeriods.find(({ name }) => name === n)?.value || 1;
 
 const FilterForm = () => {
-  // const stores = useAppSelector((state) => state.filterFormReducer.stores);
-  // const forecastDays = useAppSelector(
-  //   (state) => state.filterFormReducer.forecastDays
-  // );
-  const products = useAppSelector((state) => state.filterFormReducer.products);
+  const filterFormReducer = useAppSelector((state) => state.filterFormReducer);
+  const [cities, setCities] = useState(filterFormReducer.cities);
+  const [stores, setStores] = useState(filterFormReducer.stores);
+  const [forecastDays, setForecastDays] = useState(
+    filterFormReducer.forecastDays
+  );
+  const [statisticsPeriod, setStatisticsPeriod] = useState(
+    filterFormReducer.statisticsPeriod
+  );
+  const [products, setProducts] = useState(filterFormReducer.filteredProducts);
+
   const { data } = useGetCategoriesQuery("");
-
-  // const statisticsPeriod = useAppSelector(
-  //   (state) => state.filterFormReducer.statisticsPeriod
-  // );
-
-  // const cities = useAppSelector((state) => state.filterFormReducer.cities);
-  // const [cities, setCities] = useState<string[]>(reduxFilter.cities);
-  // const [stores, setStores] = useState<string[]>(reduxFilter.stores);
-  // const [forecastDays, setForecastDays] = useState<number>(reduxFilter.forecastDays);
-  // const [products, setProducts] = useState<{ [key: string]: boolean }>(reduxFilter.products);
-  // const [statisticsPeriod, setStatisticsPeriod] = useState<string>(getStatisticNameByValue(reduxFilter.statisticsPeriod));
 
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
   const { data: shopList } = useGetShopsQuery("");
   const { data: productsList } = useGetCategoriesQuery("");
-
-  // console.log(productsList, "this is productslist");
 
   const citiesList = useMemo(
     () =>
@@ -76,23 +69,10 @@ const FilterForm = () => {
 
   const [bools, setBools] = useState<boolean[]>([]);
 
-  // const filteredArr = productsList.filter((el,i) => {
-  //   return
-  // })
-
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // dispatch(
-    //   setFormFilter({
-    //     cities,
-    //     stores,
-    //     forecastDays,
-    //     // statisticsPeriod: getStatisticValueByName(statisticsPeriod),
-    //     statisticsPeriod,
-    //     products,
-    //   })
-    // );
-    dispatch(setFormFilter({ bools, data: data.data }));
+
+    // dispatch(setFormFilter({ bools, data: data.data }));
     console.log("Фильтры сохранились");
   };
 
@@ -106,6 +86,8 @@ const FilterForm = () => {
     console.log("Фильтры сбросились");
   };
 
+  // console.log(cities);
+
   return (
     <Box
       component="form"
@@ -118,37 +100,39 @@ const FilterForm = () => {
     >
       <Box p={"20px 32px 0 32px"}>
         {label("Город")}
-        {/* <FilterDropDown
-          currentValue={cities}
+        <FilterDropDown
+          multiple={false}
+          selectedValue={cities}
           label={"Выберите город"}
           values={citiesList}
-          setCurrentValue={setCities}
-        /> */}
+          setSelectedValue={setCities}
+        />
 
         {label("Торговый комплекс", 7)}
-        {/* <FilterDropDown
-          currentValue={stores}
+        <FilterDropDown
+          multiple={false}
+          selectedValue={stores}
           label={"Выберите ТК/Группу ТК"}
           values={storesList}
-          setCurrentValue={() => {}}
-        /> */}
+          setSelectedValue={setStores}
+        />
 
         {pathname === "/" && (
           <>
             {label("Количество дней", 7)}
-            {/* <NumberSelect value={forecastDays} setValue={() => {}} /> */}
+            <NumberSelect value={forecastDays} setValue={setForecastDays} />
           </>
         )}
         {pathname !== "/" && (
           <>
             {label("Данные за период", 7)}
-            {/* <FilterDropDown
+            <FilterDropDown
               multiple={false}
-              currentValue={statisticsPeriod.toString()}
+              selectedValue={statisticsPeriod.toString()}
               label={""}
               values={statisticPeriodNames}
-              setCurrentValue={() => {}}
-            /> */}
+              setSelectedValue={setStatisticsPeriod}
+            />
           </>
         )}
 
@@ -160,7 +144,7 @@ const FilterForm = () => {
         selectedProducts={products}
         bools={bools}
         setBools={setBools}
-        // setSelectedProducts={setProducts}
+        setSelectedProducts={setProducts}
       />
 
       <Box

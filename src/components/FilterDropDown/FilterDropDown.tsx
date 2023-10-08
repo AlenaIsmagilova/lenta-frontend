@@ -13,10 +13,10 @@ import DropDownArrow from "../../app/images/down.svg";
 import { memo, useState } from "react";
 
 interface IFilterDropDown {
-  currentValue: string | string[];
+  selectedValue: string | string[];
+  setSelectedValue: any;
   label: string;
   values: string[];
-  setCurrentValue: Function;
   multiple?: boolean;
 }
 
@@ -45,28 +45,20 @@ function getStyles(
 }
 
 const FilterDropDown = ({
-  currentValue,
-  setCurrentValue,
+  selectedValue,
+  setSelectedValue,
   values,
   label,
   multiple = true,
 }: IFilterDropDown) => {
   const theme = useTheme();
 
-  const [selectedValue, setSelectedValue] = useState<string[] | string>([]);
-
-  // const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setCurrentValue(typeof value === "string" ? value.split(",") : value);
-  // };
-
-  const handleChange = (event: SelectChangeEvent<typeof currentValue>) => {
+  const handleChange = (event: SelectChangeEvent<typeof selectedValue>) => {
     const {
       target: { value },
     } = event;
     setSelectedValue(typeof value === "string" ? value.split(",") : value);
+    console.log(selectedValue, "this is selected value");
   };
 
   return (
@@ -74,7 +66,7 @@ const FilterDropDown = ({
       <Select
         multiple={multiple}
         displayEmpty
-        value={currentValue}
+        value={selectedValue}
         onChange={handleChange}
         input={<OutlinedInput />}
         IconComponent={(props) => (
@@ -113,7 +105,7 @@ const FilterDropDown = ({
           <MenuItem
             key={item}
             value={item}
-            style={getStyles(item, currentValue, theme)}
+            style={getStyles(item, selectedValue, theme)}
           >
             {item}
           </MenuItem>

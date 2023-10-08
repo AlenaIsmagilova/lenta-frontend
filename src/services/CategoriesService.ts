@@ -1,18 +1,7 @@
-import {
-  BaseQueryFn,
-  createApi,
-  FetchArgs,
-  FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IServerResponse } from "../models/IServerResponse";
 import { IProductItem } from "../models/IProductItem";
-
-const setNewField = (arr: any) => {
-  const copyArr = [...arr];
-  copyArr.forEach((el) => (el.selected = false));
-  return { data: copyArr };
-};
 
 export const categoriesAPI = createApi({
   reducerPath: "categoriesAPI",
@@ -24,7 +13,6 @@ export const categoriesAPI = createApi({
       query: () => ({
         url: "/api/v1/categories/",
       }),
-      // transformResponse: (response: any) => setNewField(response?.data),
     }),
   }),
 });

@@ -8,8 +8,10 @@ import { IServerResponse } from "../../models/IServerResponse";
 
 interface IProductsSelectProps {
   products: IServerResponse<IProductItem[]>;
-  selectedProducts: { [key: string]: boolean };
-  setSelectedProducts?: (products: { [key: string]: boolean }) => void;
+  selectedProducts: IProductItem[];
+  setSelectedProducts: (products: IProductItem[]) => void;
+  bools: boolean[];
+  setBools: any;
 }
 
 const ProductsSelect = ({
@@ -18,20 +20,24 @@ const ProductsSelect = ({
   setSelectedProducts,
   bools,
   setBools,
-}: any) => {
-  const [filteredData, setFilteredData] = useState<IProductItem[]>([]);
+}: IProductsSelectProps) => {
+  const [searchedStr, setSearchedStr] = useState<string>("");
 
-  useEffect(() => {
-    setFilteredData(products.data);
-  }, [products]);
+  // useEffect(() => {
+  // setFilteredData(products.data);
+  // }, [products]);
 
   const handleSearch = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setFilteredData(
-        products.data.filter((item: any) =>
-          item.pr_sku_id.includes(e.target.value)
-        )
-      );
+    (e: any) => {
+      console.log(e.target.value, "this is e target value");
+
+      setSearchedStr(e.target.value);
+
+      // setFilteredData(
+      //   products.data.filter((item: any) =>
+      //     item.pr_sku_id.includes(e.target.value)
+      //   )
+      // );
     },
     [products]
   );
@@ -39,7 +45,14 @@ const ProductsSelect = ({
   return (
     <Box mt={3}>
       <OutlinedInput
-        onChange={handleSearch}
+        onKeyDown={(e) => {
+          if (e.code === "Enter") {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSearch(e);
+          }
+        }}
+        // onChange={handleSearch}
         startAdornment={<Box component={"img"} src={searchIcon} pr={2} />}
         placeholder={"Найти"}
         sx={{
@@ -54,7 +67,7 @@ const ProductsSelect = ({
       <ProductsCheckboxList
         bools={bools}
         setBools={setBools}
-        // data={filteredData}
+        searchedStr={searchedStr}
         // selectedProducts={selectedProducts}
         // setSelectedProducts={setSelectedProducts}
       />

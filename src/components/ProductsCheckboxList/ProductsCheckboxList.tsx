@@ -1,16 +1,4 @@
-import { IProductItem } from "../../models/IProductItem";
-import {
-  Checkbox,
-  Collapse,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { IProductsTree } from "../../models/IProductsTree";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { useGetCategoriesQuery } from "../../services/CategoriesService";
 import css from "./ProductsCheckboxList.module.css";
 import classNames from "classnames";
@@ -21,12 +9,16 @@ interface IProductsCheckboxListProps {
   // setSelectedProducts?: (products: { [key: string]: boolean }) => void;
   bools: boolean[];
   setBools: (arr: boolean[]) => void;
+  searchedStr: string;
 }
+
+const SUPER_IMPORTANT_CLASS_NAME = "my-box";
 
 const ProductsCheckboxList = memo(
   ({
     bools,
     setBools,
+    searchedStr,
   }: // data,
   // selectedProducts,
   // setSelectedProducts,
@@ -137,6 +129,8 @@ const ProductsCheckboxList = memo(
       return productsTree;
     };
 
+    useEffect(() => {}, [searchedStr]);
+
     const tree = useMemo(() => {
       if (data) {
         return createList(data.data);
@@ -151,6 +145,39 @@ const ProductsCheckboxList = memo(
         return setBools(new Array(data.data.length).fill(false));
       }
     }, [data]);
+
+    const refs: any = useRef([]);
+
+    useEffect(() => {
+      console.log(refs);
+    }, [refs.current]);
+
+    useEffect(() => {
+      if (searchedStr) {
+        for (const div of refs.current) {
+          div.classList.remove(css.opened);
+          div.classList.add(css.closed);
+          if (div.textContent.includes(searchedStr)) {
+            div.classList.add(css.opened);
+            div.classList.remove(css.closed);
+          }
+        }
+      } else {
+        for (const div of refs.current) {
+          div.classList.add(css.closed);
+          div.classList.remove(css.opened);
+        }
+      }
+    }, [searchedStr]);
+
+    useLayoutEffect(() => {
+      if (refs.current.length === 0) {
+        console.log("useLayoutEffect if block");
+        refs.current = document.querySelectorAll(
+          `.${SUPER_IMPORTANT_CLASS_NAME}`
+        );
+      }
+    });
 
     // console.log(tree);
 
@@ -219,7 +246,7 @@ const ProductsCheckboxList = memo(
         e.preventDefault();
         e.stopPropagation();
 
-        const div = e.target.closest(".my-box");
+        const div = e.target.closest(`.${SUPER_IMPORTANT_CLASS_NAME}`);
 
         if (div.classList.contains(css.closed)) {
           div.classList.remove(css.closed);
@@ -230,9 +257,9 @@ const ProductsCheckboxList = memo(
         }
       }
     };
-    // let counter = 0;
+    // let counter = -1;
     const returnList = (list: any, level: number, levels: any[] = []): any => {
-      // counter++
+      // counter++;
 
       return Object.entries(list).map(([key, val], i) => {
         if (key === "childIndexes" || key === "originalIndex") return;
@@ -240,7 +267,7 @@ const ProductsCheckboxList = memo(
           <div
             style={{ marginLeft: level + 10 }}
             onClick={toggleCollapse}
-            className={classNames(css.closed, "my-box")}
+            className={classNames(css.closed, SUPER_IMPORTANT_CLASS_NAME)}
           >
             <div
               className={
