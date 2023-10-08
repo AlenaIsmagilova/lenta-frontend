@@ -81,8 +81,6 @@ const ProductsCheckboxList = memo(
       return productsTree;
     };
 
-    useEffect(() => {}, [searchedStr]);
-
     const tree = useMemo(() => {
       if (data) {
         return createList(data.data);
@@ -97,10 +95,6 @@ const ProductsCheckboxList = memo(
     }, [data]);
 
     const refs = useRef<HTMLDivElement[]>([]);
-
-    useEffect(() => {
-      console.log(refs);
-    }, [refs.current]);
 
     useEffect(() => {
       if (searchedStr) {
