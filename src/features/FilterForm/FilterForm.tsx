@@ -6,7 +6,7 @@ import NumberSelect from "../../components/NumberSelect/NumberSelect";
 import ProductsSelect from "../../components/ProductsSelect/ProductsSelect";
 import closeIcon from "../../app/images/close.svg";
 
-import { setFormFilter } from "./filterFormSlice";
+import { resetFormFilter, setFormFilter } from "./filterFormSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useGetShopsQuery } from "../../services/ShopService";
 import { useGetCategoriesQuery } from "../../services/CategoriesService";
@@ -24,6 +24,7 @@ const getStatisticValueByName = (n: string): number =>
   statisticPeriods.find(({ name }) => name === n)?.value || 1;
 
 const FilterForm = () => {
+  const [bools, setBools] = useState<boolean[]>([]);
   const filterFormReducer = useAppSelector((state) => state.filterFormReducer);
   const [cities, setCities] = useState(filterFormReducer.cities);
   const [stores, setStores] = useState(filterFormReducer.stores);
@@ -34,8 +35,6 @@ const FilterForm = () => {
     filterFormReducer.statisticsPeriod
   );
   const [products, setProducts] = useState(filterFormReducer.filteredProducts);
-
-  const { data } = useGetCategoriesQuery("");
 
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
@@ -54,6 +53,7 @@ const FilterForm = () => {
     () => (shopList ? shopList.data.map((item) => item.st_id) : []),
     [shopList]
   );
+
   const label = (text: string, pt: number = 0) => (
     <Typography
       component="h3"
@@ -67,26 +67,24 @@ const FilterForm = () => {
     </Typography>
   );
 
-  const [bools, setBools] = useState<boolean[]>([]);
-
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // dispatch(setFormFilter({ bools, data: data.data }));
-    console.log("Фильтры сохранились");
+    dispatch(
+      setFormFilter({
+        bools,
+        data: productsList.data,
+        cities,
+        stores,
+        forecastDays,
+        statisticsPeriod,
+      })
+    );
   };
 
   const handleReset = () => {
-    // dispatch(resetFormFilter());
-    // setCities(initialState.cities);
-    // setStores(initialState.stores);
-    // setForecastDays(initialState.forecastDays);
-    // setProducts(initialState.products);
-    // setStatisticsPeriod(getStatisticNameByValue(initialState.statisticsPeriod));
-    console.log("Фильтры сбросились");
+    dispatch(resetFormFilter());
   };
-
-  // console.log(cities);
 
   return (
     <Box

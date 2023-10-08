@@ -10,7 +10,6 @@ import {
   useTheme,
 } from "@mui/material";
 import DropDownArrow from "../../app/images/down.svg";
-import { memo, useState } from "react";
 
 interface IFilterDropDown {
   selectedValue: string | string[];

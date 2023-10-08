@@ -25,7 +25,7 @@ export const filterFormSlice = createSlice({
       state,
       action: PayloadAction<{
         bools: boolean[];
-        data: any[];
+        data: IProductItem[];
         cities: string[];
         stores: string[];
         forecastDays: number;
@@ -41,15 +41,12 @@ export const filterFormSlice = createSlice({
       state.statisticsPeriod = action.payload.statisticsPeriod;
     },
 
-    // setCities(state, action) {
-    //   state.cities = action.payload.cities;
-    // },
-    // resetFormFilter() {
-    //   return InitialState;
-    // },
+    resetFormFilter() {
+      return initialState;
+    },
   },
 });
 
 export default filterFormSlice.reducer;
 
-export const { setFormFilter } = filterFormSlice.actions;
+export const { setFormFilter, resetFormFilter } = filterFormSlice.actions;

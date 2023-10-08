@@ -21,6 +21,5 @@ const authSlice = createSlice({
   },
 });
 
-//заменить типизацию позже, пока нет времени
-export const { setCredentials }: any = authSlice.actions;
+export const { setCredentials } = authSlice.actions;
 export default authSlice.reducer;
