@@ -3,6 +3,7 @@ import {styled} from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import {Box} from "@mui/material";
 import closeIcon from '../../app/images/close.svg'
+import {useEffect} from "react";
 
 interface ChipData {
   key: number;
@@ -13,13 +14,16 @@ const ListItem = styled('li')(({theme}) => ({
   margin: theme.spacing(0.5),
 }));
 
-export default function ChipsArray() {
-  const [chipData, setChipData] = React.useState<readonly ChipData[]>([
-    {key: 0, label: 'Выпечка'},
-    {key: 1, label: 'Кулинария'},
-    {key: 2, label: 'Салаты'},
-    {key: 4, label: 'Напитки'},
-  ]);
+interface IChipsArrayProps {
+  chips: ChipData[]
+}
+
+export default function ChipsArray({chips}: IChipsArrayProps) {
+  const [chipData, setChipData] = React.useState<readonly ChipData[]>(chips);
+
+  useEffect(() => {
+    setChipData(chips);
+  }, [chips]);
 
   const handleDelete = (chipToDelete: ChipData) => () => {
     setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
@@ -49,10 +53,10 @@ export default function ChipsArray() {
               sx={{
                 height: "32px",
                 color: 'black',
+                backgroundColor: '#003C9614',
                 fontSize: "15px"
               }}
-              variant="outlined"
-              color="primary"
+              variant="filled"
               label={data.label}
               deleteIcon={deleteIcon}
               onClick={handleClick}
