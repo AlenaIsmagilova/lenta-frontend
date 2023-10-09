@@ -22,20 +22,19 @@ const Statistics = () => {
     ];
     const navigate = useNavigate();
     const {isLoggedIn} = useAppSelector((state) => state.authReducer);
-
+    const reduxFilter = useAppSelector((state) => state.filterFormReducer);
     useEffect(() => {
         if (!isLoggedIn) {
             navigate("/signin");
         }
     }, [isLoggedIn]);
 
-    // const rows = new Array(15).fill("").map(() => new Array(staticColumnNames.length).fill(""));
     return (
         <Layout>
             <StatisticTemplateRow/>
             <ControlRow/>
             <TableComponent
-                tableRows={[]}
+                tableRows={reduxFilter.filteredProductsStatistics}
                 tableColumns={staticColumnNames}
                 staticColumnsNumber={10}
             />
