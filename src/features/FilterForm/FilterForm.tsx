@@ -152,10 +152,12 @@ const FilterForm = () => {
         display={"flex"}
         justifyContent={"space-between"}
         padding={"12px 16px 32px 32px"}
+        position={"fixed"}
+        bottom={0}
       >
         <Button
           variant={"contained"}
-          sx={{ width: 109, borderRadius: 2 }}
+          sx={{ width: 109, borderRadius: 2, marginRight: 6 }}
           type={"submit"}
         >
           Применить
