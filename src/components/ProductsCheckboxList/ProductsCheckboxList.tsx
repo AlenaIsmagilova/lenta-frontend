@@ -190,7 +190,7 @@ const ProductsCheckboxList = memo(
               <>
                 <input
                   type="checkbox"
-                  onChange={(e) => onChange(list, levels, key)}
+                  onChange={() => onChange(list, levels, key)}
                   checked={getChecked(levels, key)}
                 />
                 {typeof list[key] === "string" ? val : key}
