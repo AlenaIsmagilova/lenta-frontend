@@ -16,7 +16,6 @@ const ProductsCheckboxList = memo(
   ({ bools, setBools, searchedStr }: IProductsCheckboxListProps) => {
     const { data } = useGetCategoriesQuery("");
 
-    //адское решение. TODO: recurcy or loop
     const createList = (data: IProductItem[]) => {
       const productsTree: { [key: string]: any } = {};
       for (let i = 0; i < data.length; i++) {
@@ -114,7 +113,6 @@ const ProductsCheckboxList = memo(
       }
     }, [searchedStr]);
 
-    //так себе решение, но ...
     useLayoutEffect(() => {
       if (refs.current.length === 0) {
         refs.current = [
@@ -140,12 +138,7 @@ const ProductsCheckboxList = memo(
       return obj[key]?.childIndexes?.every((i: number) => bools[i]) || false;
     }
 
-    function onChange(
-      e: React.FormEvent<HTMLInputElement>,
-      list: any,
-      levels: string[],
-      key: string
-    ) {
+    function onChange(list: any, levels: string[], key: string) {
       if (list[key]?.originalIndex !== undefined) {
         const index = list[key]?.originalIndex;
         const newBools = [...bools];
@@ -197,7 +190,7 @@ const ProductsCheckboxList = memo(
               <>
                 <input
                   type="checkbox"
-                  onChange={(e) => onChange(e, list, levels, key)}
+                  onChange={(e) => onChange(list, levels, key)}
                   checked={getChecked(levels, key)}
                 />
                 {typeof list[key] === "string" ? val : key}
