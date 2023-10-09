@@ -84,6 +84,9 @@ const FilterForm = () => {
 
   const handleReset = () => {
     dispatch(resetFormFilter());
+    setCities([]);
+    setStores([]);
+    setForecastDays(7);
   };
 
   return (
