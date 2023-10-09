@@ -3,7 +3,7 @@ import ChipsArray from "../Chip/Chip";
 import {useAppSelector} from "../../hooks/redux";
 
 const ComparisonTemplateRow = () => {
-    const {stores, products} = useAppSelector(state => state.filterFormReducer);
+    const {stores, filteredProducts} = useAppSelector(state => state.filterFormReducer);
     const {palette} = useTheme();
     return (
         <Box
@@ -43,7 +43,7 @@ const ComparisonTemplateRow = () => {
                     >
                         Выбранные товары:
                     </Typography>
-                    <ChipsArray chips={Object.keys(products).map((label, key) => ({key, label}))}/>
+                    <ChipsArray chips={filteredProducts.map((p, key) => ({key, label: p.pr_sku_id}))}/>
                 </Box>
             </Box>
             <Box
