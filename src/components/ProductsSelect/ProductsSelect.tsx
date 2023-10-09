@@ -48,11 +48,13 @@ const ProductsSelect = ({
           marginBottom: 7,
         }}
       />
-      <ProductsCheckboxList
-        bools={bools}
-        setBools={setBools}
-        searchedStr={searchedStr}
-      />
+      <Box sx={{ overflowY: "scroll", height: "622px" }}>
+        <ProductsCheckboxList
+          bools={bools}
+          setBools={setBools}
+          searchedStr={searchedStr}
+        />
+      </Box>
     </Box>
   );
 };
