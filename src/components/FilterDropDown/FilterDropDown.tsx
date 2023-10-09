@@ -57,7 +57,6 @@ const FilterDropDown = ({
       target: { value },
     } = event;
     setSelectedValue(typeof value === "string" ? value.split(",") : value);
-    console.log(selectedValue, "this is selected value");
   };
 
   return (
