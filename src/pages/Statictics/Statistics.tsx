@@ -17,6 +17,7 @@ const Statistics = () => {
     "Разница факт/прогноз (руб)",
     "Кач-во прогноза",
   ];
+
   // const rows = new Array(15).fill("").map(() => new Array(staticColumnNames.length).fill(""));
   return (
     <Layout>

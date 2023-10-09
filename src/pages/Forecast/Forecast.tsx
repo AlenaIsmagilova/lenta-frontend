@@ -3,10 +3,12 @@ import ForecastTemplateRow from "../../components/ForecastTemplateRow/ForecastTe
 import ControlRow from "../../components/ControlRow/ControlRow";
 import TableComponent from "../../components/Table/TableComponent";
 import { useAppSelector } from "../../hooks/redux";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Forecast = () => {
   const reduxFilter = useAppSelector((state) => state.filterFormReducer);
+  const navigate = useNavigate();
   const staticColumnNames = [
     "TK",
     "Группа",
@@ -14,6 +16,14 @@ const Forecast = () => {
     "Подкатегория",
     "Товар",
   ];
+
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
+  }, []);
 
   const columns = useMemo(() => {
     const dateColumns = new Array(reduxFilter.forecastDays)

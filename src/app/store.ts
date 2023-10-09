@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import signInReducer from "../features/SignInForm/signInFormSlice";
 import filterFormReducer from "../features/FilterForm/filterFormSlice";
+import authReducer from "../features/Auth/AuthSlice";
 import { signInAPI } from "../services/SignInService";
 import { shopAPI } from "../services/ShopService";
 import { categoriesAPI } from "../services/CategoriesService";
@@ -9,6 +10,7 @@ import { getUserAPI } from "../services/GetUserService";
 const rootReducer = combineReducers({
   signInReducer,
   filterFormReducer,
+  authReducer,
   [signInAPI.reducerPath]: signInAPI.reducer,
   [shopAPI.reducerPath]: shopAPI.reducer,
   [categoriesAPI.reducerPath]: categoriesAPI.reducer,

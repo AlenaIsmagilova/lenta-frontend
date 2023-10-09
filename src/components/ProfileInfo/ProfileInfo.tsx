@@ -6,17 +6,18 @@ import phone from "../../app/images/phone.svg";
 import settings from "../../app/images/settings.svg";
 import logout from "../../app/images/logout.svg";
 import styles from "./ProfileInfo.module.css";
-import {useEffect, useState} from "react";
-import {useGetUserQuery} from "../../services/GetUserService";
-import {useDispatch} from "react-redux";
-import {getUserInfo} from "../../features/UserInfo/UserInfo";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useGetUserQuery } from "../../services/GetUserService";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "../../features/UserInfo/UserInfo";
+import { useNavigate } from "react-router-dom";
+import { exitFromProfile } from "../../features/Auth/AuthSlice";
 
 const ProfileInfo = () => {
   const [isDropDownMenuOpened, setIsDropDownMenuOpened] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {data} = useGetUserQuery("");
+  const { data } = useGetUserQuery("");
 
   useEffect(() => {
     dispatch(getUserInfo(data));
@@ -29,21 +30,22 @@ const ProfileInfo = () => {
   const clickExitHandler = () => {
     localStorage.removeItem("accessToken");
     navigate("/signin");
+    dispatch(exitFromProfile(false));
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.infoWrapper}>
-        <img className={styles.image} src={calendar} alt="календарь"/>
+        <img className={styles.image} src={calendar} alt="календарь" />
         <p className={styles.text}>{data?.current_date}</p>
       </div>
       <div className={styles.infoWrapper}>
-        <img className={styles.image} src={store} alt="магазин"/>
+        <img className={styles.image} src={store} alt="магазин" />
         <p className={styles.text}>{data?.store_ids}</p>
       </div>
       <button className={styles.button} type="button" onClick={onClick}>
         <div className={styles.infoWrapper}>
-          <img className={styles.image} src={user} alt="личный кабинет"/>
+          <img className={styles.image} src={user} alt="личный кабинет" />
           <p
             className={styles.text}
           >{`${data?.first_name} ${data?.last_name}`}</p>
