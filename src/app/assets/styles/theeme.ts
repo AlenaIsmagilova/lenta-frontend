@@ -1,5 +1,5 @@
-import {createTheme} from "@mui/material";
-import {ruRU} from "@mui/material/locale";
+import { createTheme } from "@mui/material";
+import { ruRU } from "@mui/material/locale";
 import GilroyBold from "../fonts/Gilroy-Bold.woff";
 import GilroyMeduim from "../fonts/Gilroy-Medium.woff";
 import GilroyRegular from "../fonts/Gilroy-Regular.woff";
@@ -8,47 +8,47 @@ import GilroyBold2 from "../fonts/Gilroy-Bold.woff2";
 import GilroyMeduim2 from "../fonts/Gilroy-Medium.woff2";
 import GilroyRegular2 from "../fonts/Gilroy-Regular.woff2";
 
-
-const theme = createTheme({
+const theme = createTheme(
+  {
     palette: {
-        primary: {
-            main: '#003C96',
-            dark: '#001E64',
-            light: '#B4C8FF'
-        },
-        background: {
-            default: '#FFFFFF',
-            paper: '#F8F8F8'
-        },
-        secondary: {
-            main: '#FFB900',
-            light: 'rgba(0, 60, 150, 0.05)'
-        },
-        text: {
-            primary: '#2C2A29',
-            secondary: '#808185',
-            disabled: '#AAABAD'
-        },
-        error: {
-            main: '#EE505A'
-        },
-        warning: {
-            main: '#FF9500'
-        },
-        success: {
-            main: '#00BE64'
-        },
-        info: {
-            main: '#003C9680'
-        }
+      primary: {
+        main: "#003C96",
+        dark: "#001E64",
+        light: "#B4C8FF",
+      },
+      background: {
+        default: "#FFFFFF",
+        paper: "#F8F8F8",
+      },
+      secondary: {
+        main: "#FFB900",
+        light: "rgba(0, 60, 150, 0.5)",
+      },
+      text: {
+        primary: "#2C2A29",
+        secondary: "#808185",
+        disabled: "#AAABAD",
+      },
+      error: {
+        main: "#EE505A",
+      },
+      warning: {
+        main: "#FF9500",
+      },
+      success: {
+        main: "#00BE64",
+      },
+      info: {
+        main: "#003C9680",
+      },
     },
     spacing: 4,
     typography: {
-        fontFamily: "Gilroy"
+      fontFamily: "Gilroy",
     },
     components: {
-        MuiCssBaseline: {
-            styleOverrides: `
+      MuiCssBaseline: {
+        styleOverrides: `
         @font-face {
           font-family: 'Gilroy';
           font-style: normal;
@@ -84,25 +84,27 @@ const theme = createTheme({
         #root {
           height: 100vh;
         }
-      `
+      `,
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "none",
+          },
         },
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    textTransform: 'none'
-                }
-            }
+      },
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            "& .MuiChip-deleteIcon": {
+              margin: "0 10px 0 -6px",
+            },
+          },
         },
-        MuiChip: {
-            styleOverrides: {
-                root: {
-                    "& .MuiChip-deleteIcon": {
-                        margin: "0 10px 0 -6px"
-                    },
-                }
-            }
-        }
-    }
-}, ruRU);
+      },
+    },
+  },
+  ruRU
+);
 
 export default theme;

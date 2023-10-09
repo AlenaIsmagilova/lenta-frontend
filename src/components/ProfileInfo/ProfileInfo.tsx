@@ -23,6 +23,13 @@ const ProfileInfo = () => {
     dispatch(getUserInfo(data));
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate("/signin");
+    }
+  }, []);
+
   const onClick = () => {
     setIsDropDownMenuOpened(!isDropDownMenuOpened);
   };
