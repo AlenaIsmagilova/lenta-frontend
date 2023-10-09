@@ -8,7 +8,6 @@ import {
     Legend,
 } from "chart.js";
 import {Bar} from "react-chartjs-2";
-import {IForecastOfProducts} from "../../models/IProductItem";
 import {Box} from "@mui/material";
 
 ChartJS.register(
@@ -20,7 +19,7 @@ ChartJS.register(
     Legend
 );
 
-export const options = {
+export const getChartOptions = (title: string, forecastQuality: number[]) => ({
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
@@ -34,12 +33,7 @@ export const options = {
             bodyColor: "#2C2A29",
             cornerRadius: 0,
             callbacks: {
-                title: (data: IForecastOfProducts[]) => {
-                    return `Кач-во прогноза ${data}`;
-                },
-                labels: (data: IForecastOfProducts[]) => {
-                    return `Факт. продажи ${data}`;
-                },
+                title: (context) => `Кач-во прогноза ${forecastQuality[context[0].dataIndex]}`,
             },
         },
         legend: {
@@ -48,39 +42,40 @@ export const options = {
         title: {
             display: true,
             align: "start",
-            text: "Лента фреш с курицей",
+            text: title,
             fullSize: false,
-        },
-    },
-};
+        }
+    }
+});
 
-const labels = [
-    "ТК Пражская",
-    "Мини Лента",
-    "Макси Лента",
-    "Гипер",
-    "Коломяжский",
-    "Завидово",
-    "Кудрово",
-];
-
-export const data = {
+export const getChartData = ({salesData, forecastData, labels}: IChartData) => ({
     labels,
     datasets: [
         {
-            label: "Dataset 1",
-            data: [2, 5, 70, 34, 23, 56, 7],
+            label: "Продажи",
+            data: salesData,
             backgroundColor: "rgba(255, 185, 0, 1)",
         },
         {
-            label: "Dataset 2",
-            data: [2, 5, 70, 34, 23, 56, 7],
+            label: "Прогноз",
+            data: forecastData,
             backgroundColor: "rgba(0, 60, 150, 1)",
         },
     ],
-};
+});
 
-const Chart = () => {
+interface IChartData {
+    forecastData: number[],
+    salesData: number[],
+    labels: string[]
+}
+
+interface IChartProps extends IChartData {
+    title: string,
+    forecastQuality: number[],
+}
+
+const Chart = ({title, salesData, forecastData, forecastQuality, labels}: IChartProps) => {
     return (
         <Box
             width={764}
@@ -92,7 +87,9 @@ const Chart = () => {
                 boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.08);",
             }}
         >
-            <Bar options={options} data={data}/>
+            <Bar options={getChartOptions(title, forecastQuality)}
+                 data={getChartData({salesData, forecastData, labels})}
+            />
         </Box>
 
     );

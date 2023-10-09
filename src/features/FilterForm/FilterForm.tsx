@@ -163,10 +163,10 @@ const FilterForm = () => {
                         {label("Данные за период", 7)}
                         <FilterDropDown
                             multiple={false}
-                            selectedValue={statisticsPeriod.toString()}
+                            selectedValue={getStatisticNameByValue(statisticsPeriod)}
                             label={""}
                             values={statisticPeriodNames}
-                            setSelectedValue={setStatisticsPeriod}
+                            setSelectedValue={(value: string) => setStatisticsPeriod(getStatisticValueByName(value))}
                         />
                     </>
                 )}
