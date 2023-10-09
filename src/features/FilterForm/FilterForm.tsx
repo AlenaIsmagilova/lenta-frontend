@@ -100,25 +100,25 @@ const FilterForm = () => {
             onReset={handleReset}
         >
             <Box p={"20px 32px 0 32px"}>
-                <Box sx={{ display: "flex" }}>
-          {label("Город")}
-          {cities.length !== 0 && (
-            <Box
-              sx={{
-                width: "20px",
-                height: "19px",
-                backgroundColor: "secondary.light",
-                borderRadius: "16px",
-                marginLeft: "8px",
-                padding: "1px 6px",
-                boxSizing: "border-box",
-                color: "background.default",
-              }}
-            >
-              {cities.length}
-            </Box>
-          )}
-        </Box>
+                <Box sx={{display: "flex"}}>
+                    {label("Город")}
+                    {cities.length !== 0 && (
+                        <Box
+                            sx={{
+                                width: "20px",
+                                height: "19px",
+                                backgroundColor: "secondary.dark",
+                                borderRadius: "16px",
+                                marginLeft: "8px",
+                                padding: "1px 6px",
+                                boxSizing: "border-box",
+                                color: "background.default",
+                            }}
+                        >
+                            {cities.length}
+                        </Box>
+                    )}
+                </Box>
                 <FilterDropDown
                     multiple={false}
                     selectedValue={cities}
@@ -126,32 +126,32 @@ const FilterForm = () => {
                     values={citiesList}
                     setSelectedValue={setCities}
                 />
-<Box sx={{ display: "flex", marginTop: "28px" }}>
-                {label("Торговый комплекс")}
-          {stores.length !== 0 && (
-            <Box
-              sx={{
-                width: "20px",
-                height: "19px",
-                backgroundColor: "secondary.light",
-                borderRadius: "16px",
-                marginLeft: "8px",
-                padding: "1px 6px",
-                boxSizing: "border-box",
-                color: "background.default",
-              }}
-            >
-              {stores.length}
-            </Box>
-          )}
-        </Box>
+                <Box sx={{display: "flex", marginTop: "28px"}}>
+                    {label("Торговый комплекс")}
+                    {stores.length !== 0 && (
+                        <Box
+                            sx={{
+                                width: "20px",
+                                height: "19px",
+                                backgroundColor: "secondary.dark",
+                                borderRadius: "16px",
+                                marginLeft: "8px",
+                                padding: "1px 6px",
+                                boxSizing: "border-box",
+                                color: "background.default",
+                            }}
+                        >
+                            {stores.length}
+                        </Box>
+                    )}
+                </Box>
                 <FilterDropDown
                     selectedValue={stores}
                     label={"Выберите ТК/Группу ТК"}
                     values={storesList}
                     setSelectedValue={setStores}
 
-        />
+                />
                 {pathname === "/" && (
                     <>
                         {label("Количество дней", 7)}
@@ -170,25 +170,25 @@ const FilterForm = () => {
                         />
                     </>
                 )}
-<Box sx={{ display: "flex", marginTop: "28px" }}>
-                {label("Товары")}
-          {bools.filter((el) => el).length !== 0 && (
-            <Box
-              sx={{
-                width: "20px",
-                height: "19px",
-                backgroundColor: "secondary.light",
-                borderRadius: "16px",
-                marginLeft: "8px",
-                padding: "1px 6px",
-                boxSizing: "border-box",
-                color: "background.default",
-              }}
-            >
-              {bools.filter((el) => el).length}
-            </Box>
-          )}
-        </Box>
+                <Box sx={{display: "flex", marginTop: "28px"}}>
+                    {label("Товары")}
+                    {bools.filter((el) => el).length !== 0 && (
+                        <Box
+                            sx={{
+                                width: "20px",
+                                height: "19px",
+                                backgroundColor: "secondary.dark",
+                                borderRadius: "16px",
+                                marginLeft: "8px",
+                                padding: "1px 6px",
+                                boxSizing: "border-box",
+                                color: "background.default",
+                            }}
+                        >
+                            {bools.filter((el) => el).length}
+                        </Box>
+                    )}
+                </Box>
             </Box>
 
             <ProductsSelect
@@ -208,11 +208,11 @@ const FilterForm = () => {
             >
                 <Button
                     disabled={
-            stores.length === 0 ||
-            cities.length === 0 ||
-            0 ||
-            bools.filter((el) => el).length === 0
-          }variant={"contained"}
+                        stores.length === 0 ||
+                        cities.length === 0 ||
+                        0 ||
+                        bools.filter((el) => el).length === 0
+                    } variant={"contained"}
                     sx={{width: 109, borderRadius: 2, marginRight: 6}}
                     type={"submit"}
                 >
