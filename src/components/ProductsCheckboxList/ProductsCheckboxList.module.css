@@ -1,5 +1,5 @@
 .closed {
-  height: 20px;
+  height: 44px;
   overflow-y: hidden;
 }
 
@@ -9,24 +9,28 @@
 }
 
 .listTitle {
-  height: 20px;
+  height: 44px;
   display: block;
-}
-
-.box {
-  /* min-height: 30px; */
 }
 
 .catTitle {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 20px;
+  height: 44px;
 }
 
 .dippest {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 20px;
+  height: 44px;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  accent-color: #003c96;
+  width: 16px;
+  height: 16px;
 }

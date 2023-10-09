@@ -45,6 +45,7 @@ const ProductsSelect = ({
           borderRadius: 2,
           mx: 8,
           width: 244,
+          marginBottom: 7,
         }}
       />
       <ProductsCheckboxList

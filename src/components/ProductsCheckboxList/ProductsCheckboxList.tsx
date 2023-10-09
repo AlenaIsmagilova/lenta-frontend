@@ -1,6 +1,6 @@
 import { memo, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { useGetCategoriesQuery } from "../../services/CategoriesService";
-import css from "./ProductsCheckboxList.module.css";
+import styles from "./ProductsCheckboxList.module.css";
 import classNames from "classnames";
 import { IProductItem } from "../../models/IProductItem";
 
@@ -99,17 +99,17 @@ const ProductsCheckboxList = memo(
     useEffect(() => {
       if (searchedStr) {
         for (const div of refs.current) {
-          div.classList.remove(css.opened);
-          div.classList.add(css.closed);
+          div.classList.remove(styles.opened);
+          div.classList.add(styles.closed);
           if (div.textContent?.includes(searchedStr)) {
-            div.classList.add(css.opened);
-            div.classList.remove(css.closed);
+            div.classList.add(styles.opened);
+            div.classList.remove(styles.closed);
           }
         }
       } else {
         for (const div of refs.current) {
-          div.classList.add(css.closed);
-          div.classList.remove(css.opened);
+          div.classList.add(styles.closed);
+          div.classList.remove(styles.opened);
         }
       }
     }, [searchedStr]);
@@ -164,18 +164,18 @@ const ProductsCheckboxList = memo(
     }
 
     const toggleCollapse = (e: any) => {
-      if (e.target.classList.contains(css.catTitle)) {
+      if (e.target.classList.contains(styles.catTitle)) {
         e.preventDefault();
         e.stopPropagation();
 
         const div = e.target.closest(`.${SUPER_IMPORTANT_CLASS_NAME}`);
 
-        if (div.classList.contains(css.closed)) {
-          div.classList.remove(css.closed);
-          div.classList.add(css.opened);
+        if (div.classList.contains(styles.closed)) {
+          div.classList.remove(styles.closed);
+          div.classList.add(styles.opened);
         } else {
-          div.classList.remove(css.opened);
-          div.classList.add(css.closed);
+          div.classList.remove(styles.opened);
+          div.classList.add(styles.closed);
         }
       }
     };
@@ -184,20 +184,19 @@ const ProductsCheckboxList = memo(
         if (key === "childIndexes" || key === "originalIndex") return;
         return (
           <div
-            style={{ marginLeft: level + 10 }}
+            key={i}
+            style={{ marginLeft: level + 32 }}
             onClick={toggleCollapse}
-            className={classNames(css.closed, SUPER_IMPORTANT_CLASS_NAME)}
+            className={classNames(styles.closed, SUPER_IMPORTANT_CLASS_NAME)}
           >
             <div
               className={
-                typeof list[key] === "object" ? css.catTitle : css.dippest
+                typeof list[key] === "object" ? styles.catTitle : styles.dippest
               }
             >
               <>
                 <input
                   type="checkbox"
-                  width={20}
-                  height={20}
                   onChange={(e) => onChange(e, list, levels, key)}
                   checked={getChecked(levels, key)}
                 />
